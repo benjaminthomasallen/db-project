@@ -1,0 +1,22 @@
+﻿Relational Schema 
+
+
+Users(UID: string, Password: password, school_code: string, Name: string)
+User_Attends(UID: string, school_code: string)
+User_Ratings(UID: string, EID: string , Rating: integer)
+User_Comments(UID: string, EID: string, Comment: string)
+Student(UID: string)
+Member_of(UID: string, rso_id: string)
+View_Event(UID: string, 
+Admin(UID: string, rso_id: string)
+Admin_Owns(UID: string, rso_id: string)
+RSO(rso_id: string, Name: string , UID: string)
+SuperAdmin(UID: string)
+University(school_code: string, Name: string, Description: string, num_students: integer, 
+pictures: jpeg[ARRAY], Website: URL)
+Events(EID: string, Name: string, visibility: string, email: string, type: string, phone: integer, 
+            start_date: date, end_date: date, start_time: time, end_time: time, rso_id: string)
+Location(LID: string, Name: string, Street: string, City: string, ZipCode: integer, Bldg: string, 
+Room: string, Latitude: real, Longitude: real )
+Uni_Location(school_code: string, LID: string)
+Event_Location(EID: string, LID: string)
