@@ -5,12 +5,12 @@
      Derived from w3schools How-To tutorial(Thank you)
      https://www.w3schools.com/howto/howto_css_login_form.asp
 -->
-
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
   <meta charset="utf-8">
   <title> RSO Calendar </title>
+  <link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>
   <form action="/login.php">
@@ -19,7 +19,7 @@
       <img src="img_tempname.jpg" alt="Avatar" class="avatar">
     </div>
     <!-- Username/Password and Submission -->
-    <div class="loginform">
+    <div class="container">
       <label><strong>Username</strong></label>
       <input type="text" placeholder="Enter User Id" name="uid" required>
 
@@ -30,9 +30,9 @@
       <input type="checkbox" checked="checked">Forget me not, you will
     </div>
 
-    <div class="logincancel" style="background-color:#f1f1f1">
+    <div class="container" style="background-color:#f1f1f1">
       <button type ="button" class="cancelbtn">Cancel</button>
-      <span class="psw">Forgot <a href="#">Password? </a></span>
+      <span class="psw">Need to <a href="#">Register? </a></span>
     </div>
   <form>
 </body>

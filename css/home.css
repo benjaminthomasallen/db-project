@@ -1,0 +1,46 @@
+.navbar {
+  padding: 8px 16px;
+  float: center;
+  width: 100%;
+  border: none;
+  outline: none;
+  display: block;
+  overflow: hidden;
+  color: #fff;
+  background-color: #000;
+}
+
+.navbtn{
+  border:none;
+  display:inline-block;
+  outline:0;
+  padding:8px 16px;
+  vertical-align:left;
+  overflow:hidden;
+  text-decoration:none;
+  color:inherit;
+  background-color:inherit;
+  text-align:center;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.navbtn-home{
+  border:none;
+  display:inline-block;
+  outline:0;
+  padding:8px 16px;
+  vertical-align:left;
+  overflow:hidden;
+  text-decoration:none;
+  color:inherit;
+  background-color:inherit;
+  text-align:center;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.navbtn-home:hover{
+  box-shadow: inset 5em 5em gold;
+}
+.navbtn:hover{
+  box-shadow: inset 5em 5em gold;
+}
