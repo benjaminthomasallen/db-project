@@ -1,92 +1,100 @@
-CREATE TABLE Users(
-        uid          CHAR(11),
-        name         CHAR(20),
-        school_code  CHAR(11),
-        Password     CHAR(11),
-        PRIMARY KEY (uid),
-)
+DROP DATABASE IF EXISTS school_db;
 
-CREATE TABLE User_Attends(
-        uid          CHAR(11),
-        school_code  CHAR(11),
-        PRIMARY KEY (uid),
-        FOREIGN KEY (uid) REFERENCES Users,
-        FOREIGN KEY (school_code) REFERENCES University
-)
+CREATE DATABASE school_db;
 
-CREATE TABLE User_Ratings(
-        uid          CHAR(11),
-        eid          CHAR(11),
-        rating       INTEGER,
+use schoolDb;
+
+CREATE TABLE users(
+        uid          CHAR(11) NOT NULL,
+        first_name   VARCHAR(20) NOT NULL,
+        last_name    VARCHAR(20) NOT NULL,
+        school_code  CHAR(11) NOT NULL,
+        Password     VARCHAR(11) NOT NULL,
+        PRIMARY KEY (uid)
+);
+
+CREATE TABLE users_attends(
+        uid          CHAR(11) NOT NULL,
+        school_code  CHAR(11) NOT NULL,
+        FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
+        FOREIGN KEY (school_code) REFERENCES (school_code) university ON DELETE CASCADE,
+        PRIMARY KEY (uid)
+);
+
+CREATE TABLE users_ratings(
+        uid          CHAR(11) NOT NULL,
+        eid          CHAR(11) NOT NULL,
+        rating       INTEGER NOT NULL,
+        FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
+        FOREIGN KEY (eid) REFERENCES events (eid) ON DELETE CASCADE,
         PRIMARY KEY (uid, eid)
-        FOREIGN KEY (uid) REFERENCES Users
-        FOREIGN KEY (eid) REFERENCES Events
-)
+);
 
-CREATE TABLE User_Comments(
-        uid          CHAR(11),
-        eid          CHAR(11),
-        comment      CHAR(140),
+CREATE TABLE users_comments(
+        uid          CHAR(11) NOT NULL,
+        eid          CHAR(11) NOT NULL,
+        comment      VARCHAR(140) NOT NULL,
+        FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
+        FOREIGN KEY (eid) REFERENCES events (eid) ON DELETE CASCADE,
         PRIMARY KEY (uid, eid)
-        FOREIGN KEY (uid) REFERENCES Users
-        FOREIGN KEY (eid) REFERENCES Events
-)
+);
 
-CREATE TABLE Student(
-        uid          CHAR(11),
-        PRIMARY KEY (uid),
-        FOREIGN KEY (uid) REFERENCES Users
-)
+CREATE TABLE student(
+        uid          CHAR(11) NOT NULL,
+        FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
+        PRIMARY KEY (uid)
+);
 
 CREATE TABLE Admin(
-        uid          CHAR(11),
-        rso_id       CHAR(11)
-        PRIMARY KEY (uid, rso_id),
-        FOREIGN KEY (uid) REFERENCES Users,
-        FOREIGN KEY (rso_id) REFERENCES RSO
-)
+        uid          CHAR(11) NOT NULL,
+        rso_id       CHAR(11) NOT NULL,
+        FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
+        FOREIGN KEY (rso_id) REFERENCES rso (rso_id) ON DELETE CASCADE,
+        PRIMARY KEY (uid, rso_id)
+);
 
-CREATE TABLE RSO(
-        rso_id        CHAR(11),
-        uid           CHAR(11)
-        name          CHAR(11),
-        PRIMARY KEY (rso_id),
-        FOREIGN KEY (uid) REFERENCES User
-)
+CREATE TABLE rso(
+        rso_id        CHAR(11) NOT NULL,
+        uid           CHAR(11) NOT NULL,
+        name          CHAR(11) NOT NULL,
+        FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
+        PRIMARY KEY (rso_id)
+);
 
 CREATE TABLE SuperAdmin(
-        uid          CHAR(11),
-        PRIMARY KEY (uid),
-        FOREIGN KEY (uid) REFERENCES Users
-)
+        uid          CHAR(11) NOT NULL,
+        FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
+        PRIMARY KEY (uid)
+);
 
-CREATE TABLE University(
-        school_code  CHAR(11),
-        name         CHAR(11),
-        description  CHAR(140),
+CREATE TABLE university(
+        school_code  CHAR(11) NOT NULL,
+        name         CHAR(11) NOT NULL,
+        description  VARCHAR(255),
         student_pop  INTEGER,
-        website      CHAR(40)
+        website      VARCHAR(40),
         PRIMARY KEY (school_code)
-)
-CREATE TABLE Events(
-        eid           CHAR(11),
-        rso_id        CHAR(11),
-        name          CHAR(11),
-        visibility    INTEGER,
-        email         CHAR(40),
-        type          CHAR(11),
-        phone         CHAR(13),
-        start_date    DATE(),
-        end_date      DATE(),
-        start_time    TIME(),
-        end_time      TIME()
-        PRIMARY KEY (eid)
-        FOREIGN KEY (rso_id) REFERENCES RSO
-)
+);
 
-CREATE TABLE Location(
-        lid           CHAR(11),
-        name          CHAR(11),
+CREATE TABLE events(
+        eid           CHAR(11)      NOT NULL,
+        rso_id        CHAR(11)      NOT NULL,
+        name          VARCHAR(255)  NOT NULL,
+        visibility    INTEGER       NOT NULL,
+        email         VARCHAR(40)   NOT NULL,
+        type          CHAR(11)      NOT NULL,
+        phone         CHAR(13)      NOT NULL,
+        start_date    DATE          NOT NULL,
+        end_date      DATE          NOT NULL,
+        start_time    TIME          NOT NULL,
+        end_time      TIME          NOT NULL,
+        FOREIGN KEY (rso_id) REFERENCES rso (rso_id) ON DELETE CASCADE,
+        PRIMARY KEY (eid)
+);
+
+CREATE TABLE location(
+        lid           CHAR(11) NOT NULL,
+        name          VARCHAR(255),
         street        VARCHAR(255),
         city          VARCHAR(255),
         zip           VARCHAR(255),
@@ -95,19 +103,20 @@ CREATE TABLE Location(
         latitude      VARCHAR(255),
         longitude     VARCHAR(255),
         PRIMARY KEY (lid)
-)
-CREATE TABLE Uni_Location(
+);
+
+CREATE TABLE uni_location(
         school_code   CHAR(11),
         lid           CHAR(11),
-        PRIMARY KEY (school_code),
-        FOREIGN KEY (school_code) REFERENCES University
-        FOREIGN KEY (lid) REFERENCES Location
-)
+        FOREIGN KEY (school_code) REFERENCES university (school_code) ON DELETE CASCADE,
+        FOREIGN KEY (lid) REFERENCES location (lid) ON DELETE CASCADE,
+        PRIMARY KEY (school_code)
+);
 
-CREATE TABLE Event_Location(
-        eid         CHAR(255),
+CREATE TABLE event_location(
+        eid         CHAR(11),
         lid         CHAR(11),
-        PRIMARY KEY (school_code),
-        FOREIGN KEY (school_code) REFERENCES University,
-        FOREIGN KEY (lid) REFERENCES Location
-)
+        FOREIGN KEY (school_code) REFERENCES university (school_code) ON DELETE CASCADE,
+        FOREIGN KEY (lid) REFERENCES location (lid) ON DELETE CASCADE,
+        PRIMARY KEY (school_code)
+);
