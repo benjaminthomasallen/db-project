@@ -30,7 +30,7 @@ $sql = "INSERT INTO events (eid, rso_id, name, visibility, email, type, phone, s
             if (mysql_query($sql)) {
                 echo "New record created successfully";
             } else {
-                echo "Error: " . $sql . "<br>" . mysql_error($con);
+                echo "Error: <br>" . mysql_error($con);
             }
 }
  ?>
