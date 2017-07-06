@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title> RSO Calendar </title>
   <link rel="stylesheet" type="text/css" href="css/home.css">
+  <link rel="stylesheet" type="text/css" href="calendar.css" />
+  <?php include
 </head>
 
 <body>
@@ -18,6 +20,15 @@
 
   <div class="calendar">
     <!-- Calendar Integration goes here -- >
+    <?php
+    include href="php/calendar_builder.php"
+    /* sample usages */
+    echo '<h2>July 2009</h2>';
+    echo build_calendar(7,2009);
+
+    echo '<h2>August 2009</h2>';
+    echo build_calendar(8,2009);
+    ?>
   </div>
 
 
