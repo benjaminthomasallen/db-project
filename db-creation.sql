@@ -42,7 +42,7 @@ CREATE TABLE events(
         end_date      VARCHAR(255)  NOT NULL,
         location      VARCHAR(255)  NOT NULL,
         description   VARCHAR(255)  NOT NULL,
-        FOREIGN KEY (rso_id) REFERENCES rso (rso_id) ON DELETE CASCADE,
+        /*FOREIGN KEY (rso_id) REFERENCES rso (rso_id) ON DELETE CASCADE, commented out until rso table is used*/
         PRIMARY KEY (eid)
 );
 
