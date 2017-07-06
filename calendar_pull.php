@@ -10,7 +10,7 @@ curl_close($ch);
 
 $xml = simplexml_load_string($data);
 
-$con = mysql_connect("127.0.0.1", "root", "root");
+$con = mysql_connect("localhost", "root", "");
 mysql_select_db("school_db", $con) or die(mysql_error());
 
 foreach($xml -> event as $row){
@@ -24,14 +24,13 @@ foreach($xml -> event as $row){
         $contact_email = $row -> contact_email;
         $category = $row -> category;
 
-$sql = "INSERT INTO 'event' ('eid', 'rso_id', 'name', 'visibility', 'email', 'type', 'phone', 'start_date', 'end_date', 'location', 'description')"
-            . "VALUES ('$id', '1', '$title', '1', '$contact_email', '$category', '$contact_email', '$start_date', '$end_date', '$location', '$description')";
+$sql = "INSERT INTO events (eid, rso_id, name, visibility, email, type, phone, start_date, end_date, location, description)"
+            . "VALUES ('$id', '1', '$title', '1', '$contact_email', '$category', '$contact_phone', '$start_date', '$end_date', '$location', '$description')";
 
-$result = mysql_query($sql);
-if (!$result){
-    echo 'MySQL ERROR';
-    } else {
-    echo 'SUCCESS';
-    }
-                            }
+            if (mysql_query($sql)) {
+                echo "New record created successfully";
+            } else {
+                echo "Error: " . $sql . "<br>" . mysql_error($con);
+            }
+}
  ?>
