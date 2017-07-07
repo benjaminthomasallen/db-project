@@ -31,16 +31,17 @@ CREATE TABLE rso(
 );
 
 CREATE TABLE events(
-        eid           VARCHAR(11)      NOT NULL,
-        rso_id        VARCHAR(11)      NOT NULL,
+        eid           VARCHAR(11)   NOT NULL,
+        rso_id        VARCHAR(11)   NOT NULL,
         name          VARCHAR(255)  NOT NULL,
         visibility    INTEGER       NOT NULL,
-        email         VARCHAR(255)   NOT NULL,
-        type          VARCHAR(11)      NOT NULL,
-        phone         VARCHAR(13)      NOT NULL,
+        email         VARCHAR(255)  NOT NULL,
+        type          VARCHAR(11)   NOT NULL,
+        phone         VARCHAR(13)   NOT NULL,
         start_date    VARCHAR(255)  NOT NULL,
         end_date      VARCHAR(255)  NOT NULL,
         location      VARCHAR(255)  NOT NULL,
+        room          VARCHAR(255)  NOT NULL,
         description   VARCHAR(255)  NOT NULL,
         /*FOREIGN KEY (rso_id) REFERENCES rso (rso_id) ON DELETE CASCADE, commented out until rso table is used*/
         PRIMARY KEY (eid)
