@@ -11,7 +11,7 @@ curl_close($ch);
 $xml = simplexml_load_string($data);
 
 $con = mysql_connect("localhost", "root", "");
-mysql_select_db("school_db", $con) or die(mysql_error());
+mysql_select_db("event_db", $con) or die(mysql_error());
 
 foreach($xml -> event as $row){
         $id = $row -> id;
