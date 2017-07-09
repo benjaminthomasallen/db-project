@@ -28,10 +28,40 @@
 
             var map = new google.maps.Map(document.getElementById('map'), options);
 
-            var marker = new google.maps.Marker({
+            /*var marker = new google.maps.Marker({
                 position:{lat:28.6019,lng:-81.2005},
                 map:map
             });
+
+            var infoWindow = new google.maps.InfoWindow({
+                content:'<h1>Student Union</h1'
+            });
+
+            marker.addListener('click', function(){
+                infoWindow.open(map, marker);
+            });*/
+
+            addMarker({
+                coords:{lat:28.6019,lng:-81.2005},
+                content:'<h1>Student Union</h1>'
+            });
+
+            function addMarker(props){
+                var marker = new google.maps.Marker({
+                    position:props.coords,
+                    map:map
+                });
+
+                if(props.content){
+                    var infoWindow = new google.maps.InfoWindow({
+                        content:props.content
+                    });
+
+                    marker.addListener('click', function(){
+                        infoWindow.open(map, marker);
+                    });
+                }
+            }
     }
 
     </script>
