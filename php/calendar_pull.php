@@ -10,8 +10,8 @@ curl_close($ch);
 
 $xml = simplexml_load_string($data);
 
-$con = mysql_connect("localhost", "root", "");
-mysql_select_db("school_db", $con) or die(mysql_error());
+$con = mysqli_connect("localhost", "root", "", "event_db") or
+  die(mysql_error());
 
 foreach($xml -> event as $row){
         $id = $row -> id;
@@ -28,10 +28,12 @@ foreach($xml -> event as $row){
 $sql = "INSERT INTO events (eid, rso_id, name, visibility, email, type, phone, start_date, end_date, location, room, description)"
             . "VALUES ('$id', '1', '$title', '1', '$contact_email', '$category', '$contact_phone', '$start_date', '$end_date', '$location', '$room', '$description')";
 
-            if (mysql_query($sql)) {
-                echo "New record created successfully";
-            } else {
-                echo "Error: <br>" . mysql_error($con);
+            if (mysqli_query($con, $sql) <> TRUE) {
+                echo "ERROR: " . mysqli_error($con) . "<br>";
             }
+            else {
+              echo "New record created successfully<br>";
+            }
+
 }
  ?>

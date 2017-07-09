@@ -11,6 +11,10 @@ td.calendar-day{
   min-height: 80px;
   font-size: 11px;
   position: relative;
+  width: 120px;
+  padding: 5px;
+  border-bottom: 1px solid #999;
+  border-right: 1px solid #999;
 }
 
 td.calendar-day:hover{
@@ -20,6 +24,10 @@ td.calendar-day:hover{
 td.calendar-day-np {
   background: #eee;
   min-height: 80px;
+  width: 120px;
+  padding: 5px;
+  border-bottom: 1px solid #999;
+  border-right: 1px solid #999;
 }
 
 td.calendar-day-head{
@@ -41,11 +49,4 @@ div.day-number{
   margin: -5px -5px 0 0;
   width: 20px;
   text-align: center;
-}
-
-td.calendar-day, td.calendar-day-np {
-  width: 120px;
-  padding: 5px;
-  border-bottom: 1px solid #999;
-  border-right: 1px solid #999;
 }
