@@ -29,9 +29,12 @@ if ($result->num_rows > 0) {
             </tr>";
     // output data of each row
     while($row = $result->fetch_assoc()) {
+        $stime = strtotime($row['start_date']);
+        $etime = strtotime($row['end_date']);
+
         echo "<tr><td><strong>" . $row["name"] . "</strong></td></tr>";
-        echo "<tr><td>" . $row["start_date"] . $row["end_date"] . "</td></tr>";
-        echo "<tr><td>" . $row["location"] . $row["room"] . "</td></tr>";
+        echo "<tr><td>" . date('l F d, Y g:i a', $stime) . " through " . date('g:i a', $etime) . "</td></tr>";
+        echo "<tr><td>" . $row["location"] . " " . $row["room"] . "</td></tr>";
         echo "<tr><td>" . $row["description"] . "</td></tr>";
         echo '<tr class="bordered"><td></td></tr>';
     }
