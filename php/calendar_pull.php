@@ -23,6 +23,13 @@ foreach($xml -> event as $row){
         $contact_email = $row -> contact_email;
         $category = $row -> category;
 
+$start_date = DateTime::createFromFormat('D, d M Y G:i:s e', $start_date);
+$start_date = $start_date->format('Y:m:d G:i:s');
+
+$end_date = DateTime::createFromFormat('D, d M Y G:i:s e', $end_date);
+$end_date = $end_date->format('Y:m:d G:i:s');
+
+
 $sql = "INSERT INTO events (eid, rso_id, name, visibility, email, type, phone, start_date, end_date, location, room, description)"
             . "VALUES ('$eid', '1', '$title', '1', '$contact_email', '$category', '$contact_phone', '$start_date', '$end_date', '$location', '$room', '$description')";
 
