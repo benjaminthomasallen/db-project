@@ -1,11 +1,9 @@
 <hmtl>
 <head>
-    <style type ="text/css">
-    table {
-            tr.spaceUnder>td {
-                padding-bottom: 1em;
-            }
-    }
+    <style type ='text/css'>
+        tr.bordered td{
+            border-bottom: 1pt solid black;
+        }
     </style>
 </head>
 <body>
@@ -31,10 +29,11 @@ if ($result->num_rows > 0) {
             </tr>";
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo "<tr><td>" . $row["name"] . "</td></tr>";
+        echo "<tr><td><strong>" . $row["name"] . "</strong></td></tr>";
         echo "<tr><td>" . $row["start_date"] . $row["end_date"] . "</td></tr>";
         echo "<tr><td>" . $row["location"] . $row["room"] . "</td></tr>";
         echo "<tr><td>" . $row["description"] . "</td></tr>";
+        echo '<tr class="bordered"><td></td></tr>';
     }
     echo "</table>";
 } else {
