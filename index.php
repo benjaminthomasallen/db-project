@@ -17,17 +17,16 @@
     <a href="joinrso.html" class="navbtn"> Join RSO </a>
     <a href="login.html" class="navbtn"> Login/Register </a>
   </nav>
-
+  <!-- Event Calendar -->
   <div class="controls">
     <?php
       include 'php/calendar_controls.php';
      ?>
   </div>
-
   <div class="calendar">
     <?php
     include 'php/calendar_builder.php';
-    /* sample usages */
+    /* Calendar Declaration */
     echo '<h2>'.date('F', mktime(0,0,0,$month)).' '.$year.'</h2>';
     echo build_calendar($month,$year);
     ?>
