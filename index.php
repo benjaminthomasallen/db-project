@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> RSO Calendar </title>
-  <link rel="stylesheet" type="text/css" href="css/home.css">
-  <link rel="stylesheet" type="text/css" href="css/calendar.css" />
+<?php
+  require_once 'php/header.php';
 
-</head>
+ ?>
 
 <body>
   <!-- Top Navigation Bar -->
