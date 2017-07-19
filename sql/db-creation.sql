@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS school_db;
+DROP DATABASE IF EXISTS event_db;
 
-CREATE DATABASE school_db;
+CREATE DATABASE event_db;
 
-USE school_db;
+USE event_db;
 
 CREATE TABLE users(
         uid          CHAR(11)       NOT NULL,
