@@ -1,4 +1,5 @@
 <?php
+include 'functions.php';
 
 $url = "http://events.ucf.edu/upcoming/feed.xml";
 $ch = curl_init();
@@ -10,11 +11,8 @@ curl_close($ch);
 
 $xml = simplexml_load_string($data);
 
-$con = mysqli_connect("localhost", "root", "", "event_db") or
-  die(mysql_error());
-
 foreach($xml -> event as $row){
-        $id = $row -> id;
+        $eid = $row -> id;
         $title = $row -> title;
         $start_date = $row -> start_date;
         $end_date = $row -> end_date;
@@ -26,9 +24,9 @@ foreach($xml -> event as $row){
         $category = $row -> category;
 
 $sql = "INSERT INTO events (eid, rso_id, name, visibility, email, type, phone, start_date, end_date, location, room, description)"
-            . "VALUES ('$id', '1', '$title', '1', '$contact_email', '$category', '$contact_phone', '$start_date', '$end_date', '$location', '$room', '$description')";
+            . "VALUES ('$eid', '1', '$title', '1', '$contact_email', '$category', '$contact_phone', '$start_date', '$end_date', '$location', '$room', '$description')";
 
-            if (mysqli_query($con, $sql) <> TRUE) {
+            if (queryMysql($sql) <> TRUE) {
                 echo "ERROR: " . mysqli_error($con) . "<br>";
             }
             else {

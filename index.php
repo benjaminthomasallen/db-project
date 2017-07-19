@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> RSO Calendar </title>
-  <link rel="stylesheet" type="text/css" href="css/home.css">
-  <link rel="stylesheet" type="text/css" href="css/calendar.css" />
+<?php
+  require_once 'php/header.php';
 
-</head>
+ ?>
 
 <body>
   <!-- Top Navigation Bar -->
@@ -17,17 +11,16 @@
     <a href="joinrso.html" class="navbtn"> Join RSO </a>
     <a href="login.html" class="navbtn"> Login/Register </a>
   </nav>
-
+  <!-- Event Calendar -->
   <div class="controls">
     <?php
       include 'php/calendar_controls.php';
      ?>
   </div>
-
   <div class="calendar">
     <?php
     include 'php/calendar_builder.php';
-    /* sample usages */
+    /* Calendar Declaration */
     echo '<h2>'.date('F', mktime(0,0,0,$month)).' '.$year.'</h2>';
     echo build_calendar($month,$year);
     ?>
