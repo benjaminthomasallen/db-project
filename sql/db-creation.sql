@@ -42,7 +42,7 @@ CREATE TABLE events(
         end_date      DATETIME      NOT NULL,
         location      VARCHAR(255)  NOT NULL,
         room          VARCHAR(255)  NOT NULL,
-        description   VARCHAR(255)  NOT NULL,
+        description   TEXT  NOT NULL,
         /*FOREIGN KEY (rso_id) REFERENCES rso (rso_id) ON DELETE CASCADE, commented out until rso table is used*/
         PRIMARY KEY (eid)
 );
