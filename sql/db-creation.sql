@@ -151,6 +151,9 @@ VALUES('Oliver', 'Mac', '1', 'oliveMacUcf', 'pw', 'oliveMacUcf@knights.ucf.edu')
 INSERT INTO users (first_name, last_name, school_code, username, password, email)
 VALUES('Marcelle', 'Travis', '1', 'macTravisUcf', 'pw', 'macTravisUcf@knights.edu');
 
+
+INSERT INTO rso (uid, name)
+VALUES ('10', 'UCF XML Events');
 INSERT INTO rso (uid, name)
 VALUES('8', 'Chess Club');
 INSERT INTO rso (uid, name)
@@ -166,8 +169,8 @@ INSERT INTO student VALUES('7');
 -- both student and admins
 INSERT INTO student VALUES('8');
 INSERT INTO student VALUES('9');
-INSERT INTO admin VALUES('8', '1');
-INSERT INTO admin VALUES('9', '2');
+INSERT INTO admin VALUES('8', '2');
+INSERT INTO admin VALUES('9', '3');
 
 INSERT INTO super_admin VALUES('10');
 
