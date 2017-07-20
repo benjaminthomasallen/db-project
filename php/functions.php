@@ -15,8 +15,24 @@ $con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname) or
   die(mysql_error());
 
 
+// Global Variables
+
+
+
+/* date settings */
+/* check the date selections in or default to previous */
+$month = (int) (isset($_GET['month']) ? $_GET['month'] : date('m'));
+$year = (int)  (isset($_GET['year']) ? $_GET['year'] : date('Y'));
+
 /* FUNCTION DEFINITIONS */
 
+//Converts numeric month to month name
+function monthName($mon)
+{
+  $dateObject = DateTime::createFromFormat('!m', $mon);
+  $monthName = $dateObject->format('F');
+  return $monthName;
+}
 // handles connection
 // returns result
 function queryMysql($query)

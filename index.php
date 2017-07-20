@@ -3,7 +3,7 @@
 
  ?>
 
-<body>
+
   <!-- Top Navigation Bar -->
   <nav class="navbar">
     <a href="index.php" class="navbtn-home"> RSO Event Calendar </a>
@@ -11,6 +11,9 @@
     <a href="joinrso.html" class="navbtn"> Join RSO </a>
     <a href="login.html" class="navbtn"> Login/Register </a>
   </nav>
+  <?php
+    echo "<div class='welcome'><p>Welcome, $username. Here are the events for ".monthName($month). ", $year</p></div>";
+  ?>
   <!-- Event Calendar -->
   <div class="controls">
     <?php
@@ -26,7 +29,5 @@
     ?>
   </div>
 
-
 </body>
-
 </html>

@@ -6,14 +6,6 @@
    Public, Private, and RSO views. As well as RSO selection.
 */
 
-
-
-/* date settings */
-/* check the date selections in or default to previous */
-
-$month = (int) (isset($_GET['month']) ? $_GET['month'] : date('m'));
-$year = (int)  (isset($_GET['year']) ? $_GET['year'] : date('Y'));
-
 /* select month control */
 $select_month_control = '<select name="month" id="month">';
 for($x = 1; $x <= 12; $x++) {
