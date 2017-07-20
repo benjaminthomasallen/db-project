@@ -40,5 +40,16 @@ $sql = "INSERT INTO events (eid, rso_id, name, visibility, email, type, phone, s
               echo "New record created successfully<br>";
             }
 
+$sql = "INSERT INTO event_location(eid, lid, school_code, bldg, room)"
+            ."VALUES('$eid', '1', '1', '$location', '$room')";
+
+
+            if (queryMysql($sql) <> TRUE) {
+                echo "ERROR: " . mysqli_error($con) . "<br>";
+            }
+            else {
+                echo "New record created successfully<br>";
+            }            
+
 }
  ?>
