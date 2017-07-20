@@ -1,16 +1,27 @@
+<?php
+  require_once 'php/header.php';
+
+ ?>
+
+
 <hmtl>
 <head>
-    <style type ="text/css">
-    table {
-            tr.spaceUnder>td {
-                padding-bottom: 1em;
-            }
-    }
+    <style type ='text/css'>
+        tr.bordered td{
+            border-bottom: 1pt solid black;
+        }
     </style>
 </head>
 <body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+      <a href="index.php" class="navbtn-home"> RSO Event Calendar </a>
+      <a href="populate_events.php" class="navbtn"> View Events </a>
+      <a href="populate_rso.php" class="navbtn"> Join RSO </a>
+      <a href="login.html" class="navbtn"> Login/Register </a>
+    </nav>
+
 <?php
-include 'functions.php';
 
 $sql = "SELECT
             a.name,
@@ -31,10 +42,14 @@ if ($result->num_rows > 0) {
             </tr>";
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo "<tr><td>" . $row["name"] . "</td></tr>";
-        echo "<tr><td>" . $row["start_date"] . $row["end_date"] . "</td></tr>";
-        echo "<tr><td>" . $row["location"] . $row["room"] . "</td></tr>";
+        $stime = strtotime($row['start_date']);
+        $etime = strtotime($row['end_date']);
+
+        echo "<tr><td><strong>" . $row["name"] . "</strong></td></tr>";
+        echo "<tr><td>" . date('l F d, Y g:i a', $stime) . " through " . date('g:i a', $etime) . "</td></tr>";
+        echo "<tr><td>" . $row["location"] . " " . $row["room"] . "</td></tr>";
         echo "<tr><td>" . $row["description"] . "</td></tr>";
+        echo '<tr class="bordered"><td></td></tr>';
     }
     echo "</table>";
 } else {

@@ -9,7 +9,7 @@ curl_setopt($ch, CURLOPT_URL, $url);
 $data = curl_exec($ch);
 curl_close($ch);
 
-$xml = simplexml_load_string($data);
+$xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
 
 foreach($xml -> event as $row){
         $eid = $row -> id;
@@ -38,6 +38,17 @@ $sql = "INSERT INTO events (eid, rso_id, name, visibility, email, type, phone, s
             }
             else {
               echo "New record created successfully<br>";
+            }
+
+$sql = "INSERT INTO event_location(eid, lid, school_code, bldg, room)"
+            ."VALUES('$eid', '1', '1', '$location', '$room')";
+
+
+            if (queryMysql($sql) <> TRUE) {
+                echo "ERROR: " . mysqli_error($con) . "<br>";
+            }
+            else {
+                echo "New record created successfully<br>";
             }
 
 }
