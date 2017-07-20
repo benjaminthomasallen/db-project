@@ -9,7 +9,7 @@ curl_setopt($ch, CURLOPT_URL, $url);
 $data = curl_exec($ch);
 curl_close($ch);
 
-$xml = simplexml_load_string($data);
+$xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
 
 foreach($xml -> event as $row){
         $eid = $row -> id;
@@ -49,7 +49,7 @@ $sql = "INSERT INTO event_location(eid, lid, school_code, bldg, room)"
             }
             else {
                 echo "New record created successfully<br>";
-            }            
+            }
 
 }
  ?>
