@@ -42,7 +42,7 @@ CREATE TABLE events(
         visibility    INTEGER       NOT NULL,
         email         VARCHAR(255)  NOT NULL,
         type          VARCHAR(11)   NOT NULL,
-        phone         VARCHAR(13)   NOT NULL,
+        phone         VARCHAR(20)   NOT NULL,
         start_date    DATETIME      NOT NULL,
         end_date      DATETIME      NOT NULL,
         location      VARCHAR(255)  NOT NULL,
@@ -124,7 +124,8 @@ CREATE TABLE event_location(
         room           VARCHAR(255)  NOT NULL,
         FOREIGN KEY (school_code) REFERENCES university (school_code) ON DELETE CASCADE,
         FOREIGN KEY (lid) REFERENCES location (lid) ON DELETE CASCADE,
-        PRIMARY KEY (school_code)
+        FOREIGN KEY (eid) REFERENCES events (eid) ON DELETE CASCADE,
+        PRIMARY KEY (eid)
 );
 
 -- UCF students
@@ -203,6 +204,11 @@ VALUES('9', '1', 'Aviation Club');
 INSERT INTO admin VALUES('10', '1');
 INSERT INTO admin VALUES('8', '2');
 INSERT INTO admin VALUES('9', '3');
+
+INSERT INTO events VALUES('1', '2', 'First Chess Club Meeting', '1', 'samLinnaUcf@knights.ucf.edu', 'Social', '202-555-0120', '2017-07-30 13:30:00', '2017-07-30 14:00:00', 'UCF ENG1', '313', "The first chess club meeting of the semester, don't miss it!");
+INSERT INTO event_location VALUES('1', '1', '1', 'ENG1', '313');
+INSERT INTO events VALUES('2', '3', 'Aviation Club Test Flight', '1', 'oliveMacUcf@knights.ucf.edu', 'Social', '630-446-8851', '2017-08-02 10:30:00', '2017-08-02 12:00:00', 'UCF Lake Claire', '1', "The aviation club will be showing off the new drone they raised money for last semester");
+INSERT INTO event_location VALUES('2', '1', '1', 'Lake Claire', '1');
 
 select * from users;
 select * from student;
