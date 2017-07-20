@@ -28,7 +28,9 @@ CREATE TABLE university(
 CREATE TABLE rso(
         rso_id        INT           NOT NULL AUTO_INCREMENT,
         uid           INT           NOT NULL,
+        school_code   INT           NOT NULL,
         name          VARCHAR(255)  NOT NULL,
+        FOREIGN KEY (school_code) REFERENCES university (school_code) ON DELETE CASCADE,
         FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
         PRIMARY KEY (rso_id)
 );
@@ -100,11 +102,7 @@ CREATE TABLE super_admin(
 CREATE TABLE location(
         lid           INT           NOT NULL AUTO_INCREMENT,
         name          VARCHAR(255)  NOT NULL,
-        street        VARCHAR(255)  NOT NULL,
-        city          VARCHAR(255)  NOT NULL,
-        zip           VARCHAR(255)  NOT NULL,
-        bldg          VARCHAR(255)  NOT NULL,
-        room          VARCHAR(255)  NOT NULL,
+        address       VARCHAR(255)  NOT NULL,
         latitude      VARCHAR(255)  NOT NULL,
         longitude     VARCHAR(255)  NOT NULL,
         PRIMARY KEY (lid)
@@ -119,9 +117,11 @@ CREATE TABLE uni_location(
 );
 
 CREATE TABLE event_location(
-        eid         VARCHAR(11)     NOT NULL,
-        lid         INT             NOT NULL,
-        school_code INT             NOT NULL,
+        eid            VARCHAR(11)   NOT NULL,
+        lid            INT           NOT NULL,
+        school_code    INT           NOT NULL,
+        bldg           VARCHAR(255)  NOT NULL,
+        room           VARCHAR(255)  NOT NULL,
         FOREIGN KEY (school_code) REFERENCES university (school_code) ON DELETE CASCADE,
         FOREIGN KEY (lid) REFERENCES location (lid) ON DELETE CASCADE,
         PRIMARY KEY (school_code)
@@ -151,14 +151,6 @@ VALUES('Oliver', 'Mac', '1', 'oliveMacUcf', 'pw', 'oliveMacUcf@knights.ucf.edu')
 INSERT INTO users (first_name, last_name, school_code, username, password, email)
 VALUES('Marcelle', 'Travis', '1', 'macTravisUcf', 'pw', 'macTravisUcf@knights.edu');
 
-
-INSERT INTO rso (uid, name)
-VALUES ('10', 'UCF XML Events');
-INSERT INTO rso (uid, name)
-VALUES('8', 'Chess Club');
-INSERT INTO rso (uid, name)
-VALUES('9', 'Aviation Club');
-
 INSERT INTO student VALUES('1');
 INSERT INTO student VALUES('2');
 INSERT INTO student VALUES('3');
@@ -169,8 +161,6 @@ INSERT INTO student VALUES('7');
 -- both student and admins
 INSERT INTO student VALUES('8');
 INSERT INTO student VALUES('9');
-INSERT INTO admin VALUES('8', '2');
-INSERT INTO admin VALUES('9', '3');
 
 INSERT INTO super_admin VALUES('10');
 
@@ -180,6 +170,39 @@ INSERT INTO university (name, abbrev, description, student_pop, website)
 VALUES('University of Florida', 'UF', "At the University of Florida, we are a people of purpose. We're committed to challenging convention and ourselves. We see things not as they are, but as they could be. And we strive for a greater impact: one measured in people helped and lives improved.", '52286', 'http://www.ufl.edu/');
 INSERT INTO university (name, abbrev, description, student_pop, website)
 VALUES('Florida State University', 'FSU', "One of the nation's elite research universities, Florida State University preserves, expands, and disseminates knowledge in the sciences, technology, arts, humanities, and professions, while embracing a philosophy of learning strongly rooted in the traditions of the liberal arts and critical thinking.", '41867', 'http://www.fsu.edu/');
+
+INSERT INTO location (name, address, latitude, longitude)
+VALUES('UCF Main Campus', '4000 Central Florida Blvd, Orlando, FL 32816', '28.6024', '-81.2001');
+INSERT INTO location (name, address, latitude, longitude)
+VALUES('UF Main Campus', 'Gainesville, FL 32611', '29.643632', '-82.35493');
+INSERT INTO location (name, address, latitude, longitude)
+VALUES('FSU Main Campus', '600 W College Ave, Tallahassee, FL 32306', '30.4419', '-84.2985');
+
+INSERT INTO uni_location VALUES('1', '1');
+INSERT INTO uni_location VALUES('2', '2');
+INSERT INTO uni_location VALUES('3', '3');
+
+INSERT INTO users_attends VALUES('1', '1');
+INSERT INTO users_attends VALUES('2', '1');
+INSERT INTO users_attends VALUES('3', '1');
+INSERT INTO users_attends VALUES('4', '1');
+INSERT INTO users_attends VALUES('5', '1');
+INSERT INTO users_attends VALUES('6', '1');
+INSERT INTO users_attends VALUES('7', '1');
+INSERT INTO users_attends VALUES('8', '1');
+INSERT INTO users_attends VALUES('9', '1');
+
+-- For the events pulled from the ucf upcoming events xml
+INSERT INTO rso (uid, school_code, name)
+VALUES ('10', '1', 'UCF XML Events');
+INSERT INTO rso (uid, school_code, name)
+VALUES('8', '1', 'Chess Club');
+INSERT INTO rso (uid, school_code, name)
+VALUES('9', '1', 'Aviation Club');
+
+INSERT INTO admin VALUES('10', '1');
+INSERT INTO admin VALUES('8', '2');
+INSERT INTO admin VALUES('9', '3');
 
 select * from users;
 select * from student;
