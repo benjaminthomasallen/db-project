@@ -3,7 +3,7 @@
  ?>
 
   <?php
-    echo "<div class='welcome'><p>Welcome, $user. Here are the events for ".monthName($month). ", $year</p></div>";
+    echo "<div class='welcome'><p>Welcome, $username. Here are the events for ".monthName($month). ", $year</p></div>";
   ?>
   <!-- Event Calendar -->
   <div class="controls">

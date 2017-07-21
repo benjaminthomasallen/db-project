@@ -19,7 +19,7 @@ if(isset($_SESSION['user']))
 {
   $user = $_SESSION['user'];
   $loggedin = TRUE;
-  $username = ' $user';
+  $username =  $user;
 }
 else $loggedin = FALSE;
 
