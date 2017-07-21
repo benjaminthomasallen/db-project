@@ -30,6 +30,8 @@ CREATE TABLE rso(
         uid           INT           NOT NULL,
         school_code   INT           NOT NULL,
         name          VARCHAR(255)  NOT NULL,
+        num_members   INT           NOT NULL,
+        active        BOOLEAN       NOT NULL,
         FOREIGN KEY (school_code) REFERENCES university (school_code) ON DELETE CASCADE,
         FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
         PRIMARY KEY (rso_id)
@@ -194,12 +196,12 @@ INSERT INTO users_attends VALUES('8', '1');
 INSERT INTO users_attends VALUES('9', '1');
 
 -- For the events pulled from the ucf upcoming events xml
-INSERT INTO rso (uid, school_code, name)
-VALUES ('10', '1', 'UCF XML Events');
-INSERT INTO rso (uid, school_code, name)
-VALUES('8', '1', 'Chess Club');
-INSERT INTO rso (uid, school_code, name)
-VALUES('9', '1', 'Aviation Club');
+INSERT INTO rso (uid, school_code, name, num_members, active)
+VALUES ('10', '1', 'UCF XML Events', '5', TRUE);
+INSERT INTO rso (uid, school_code, name, num_members, active)
+VALUES('8', '1', 'Chess Club', '10', TRUE);
+INSERT INTO rso (uid, school_code, name, num_members, active)
+VALUES('9', '1', 'Aviation Club', '5', TRUE);
 
 INSERT INTO admin VALUES('10', '1');
 INSERT INTO admin VALUES('8', '2');
@@ -210,7 +212,27 @@ INSERT INTO event_location VALUES('1', '1', '1', 'ENG1', '313');
 INSERT INTO events VALUES('2', '3', 'Aviation Club Test Flight', '1', 'oliveMacUcf@knights.ucf.edu', 'Social', '630-446-8851', '2017-08-02 10:30:00', '2017-08-02 12:00:00', 'UCF Lake Claire', '1', "The aviation club will be showing off the new drone they raised money for last semester");
 INSERT INTO event_location VALUES('2', '1', '1', 'Lake Claire', '1');
 
-select * from users;
-select * from student;
-select * from rso;
-select * from university;
+
+DROP TRIGGER IF EXISTS check_active_rso_update;
+
+delimiter //
+CREATE TRIGGER check_active_rso_update BEFORE UPDATE ON rso
+FOR EACH ROW
+BEGIN
+    IF (NEW.num_members < 5) THEN
+        SET NEW.active = FALSE;
+    END IF;
+END//
+delimiter ;
+
+DROP TRIGGER IF EXISTS check_active_rso_insert;
+
+delimiter //
+CREATE TRIGGER check_active_rso_insert BEFORE INSERT ON rso
+FOR EACH ROW
+BEGIN
+    IF (NEW.num_members < 5) THEN
+        SET NEW.active = FALSE;
+    END IF;
+END//
+delimiter ;
