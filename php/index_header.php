@@ -24,16 +24,16 @@ if(isset($_SESSION['user']))
 else $loggedin = FALSE;
 
 // Style sheet inclusions
-echo "<link rel='stylesheet' type='text/css' href='../css/home.css'>"       .
-     "<link rel='stylesheet' type='text/css' href='../css/calendar.css'>"   .
-     "</head><body>".
+echo "<link rel='stylesheet' type='text/css' href='css/home.css'>"             .
+     "<link rel='stylesheet' type='text/css' href='css/calendar.css'>"         .
+     "</head><body>"                                                           .
      " <!-- Top Navigation Bar -->
        <nav class='navbar'>
-         <a href='../index.php' class='navbtn-home'> RSO Event Calendar </a>
-         <a href='populate_events.php' class='navbtn'> View Events </a>
-         <a href='populate_rso.php' class='navbtn'> Join RSO </a>
-         <a href='login.php' class='navbtn'> Login/Register </a>
-       </nav>  ";
+         <a href='index.php' class='navbtn-home'> RSO Event Calendar </a>
+         <a href='php/populate_events.php' class='navbtn'> View Events </a>
+         <a href='php/populate_rso.php' class='navbtn'> Join RSO </a>
+         <a href='php/login.php' class='navbtn'> Login/Register </a>
+       </nav>  "                                                               ;
 
 // Login Stuff
 if($loggedin)

@@ -30,20 +30,7 @@
           $sql ="INSERT INTO users (first_name, last_name, school_code, username, password, email)"
                  . "VALUES('$firstname', '$lastname', '$school', '$user', '$pass', '$email')";
           queryMysql($sql);
-          echo "Inserted Values: " .
-                $firstname         .
-                " "                .
-                $lastname          .
-                " "                .
-                $school            .
-                " "                .
-                $user              .
-                " "                .
-                $pass              .
-                " "                .
-                $email             .
-                "<br><br>"         ;
-          die("<h4>Account Created</h4> Please Log in. <br><br>");
+          die("<h4>Account Created</h4> Please <a href='login.php'>Log in.</a> <br><br>");
         }
       }
   }

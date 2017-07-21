@@ -1,28 +1,6 @@
 <?php
   require_once 'header.php';
 
- ?>
-
-
-<hmtl>
-<head>
-    <style type ='text/css'>
-        tr.bordered td{
-            border-bottom: 1pt solid black;
-        }
-    </style>
-</head>
-<body>
-    <!-- Top Navigation Bar -->
-    <nav class="navbar">
-      <a href="index.php" class="navbtn-home"> RSO Event Calendar </a>
-      <a href="populate_events.php" class="navbtn"> View Events </a>
-      <a href="populate_rso.php" class="navbtn"> Join RSO </a>
-      <a href="login.html" class="navbtn"> Login/Register </a>
-    </nav>
-
-<?php
-
 $sql = "SELECT
             a.rso_id,
             a.uid,
