@@ -212,7 +212,27 @@ INSERT INTO event_location VALUES('1', '1', '1', 'ENG1', '313');
 INSERT INTO events VALUES('2', '3', 'Aviation Club Test Flight', '1', 'oliveMacUcf@knights.ucf.edu', 'Social', '630-446-8851', '2017-08-02 10:30:00', '2017-08-02 12:00:00', 'UCF Lake Claire', '1', "The aviation club will be showing off the new drone they raised money for last semester");
 INSERT INTO event_location VALUES('2', '1', '1', 'Lake Claire', '1');
 
-select * from users;
-select * from student;
-select * from rso;
-select * from university;
+
+DROP TRIGGER IF EXISTS check_active_rso_update;
+
+delimiter //
+CREATE TRIGGER check_active_rso_update BEFORE UPDATE ON rso
+FOR EACH ROW
+BEGIN
+    IF (NEW.num_members < 5) THEN
+        SET NEW.active = FALSE;
+    END IF;
+END//
+delimiter ;
+
+DROP TRIGGER IF EXISTS check_active_rso_insert;
+
+delimiter //
+CREATE TRIGGER check_active_rso_insert BEFORE INSERT ON rso
+FOR EACH ROW
+BEGIN
+    IF (NEW.num_members < 5) THEN
+        SET NEW.active = FALSE;
+    END IF;
+END//
+delimiter ;
