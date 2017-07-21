@@ -54,7 +54,7 @@ CREATE TABLE events(
         PRIMARY KEY (eid)
 );
 
-CREATE TABLE users_attends(
+CREATE TABLE user_attends(
         uid          INT            NOT NULL,
         school_code  INT            NOT NULL,
         FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
@@ -62,7 +62,7 @@ CREATE TABLE users_attends(
         PRIMARY KEY (uid, school_code)
 );
 
-CREATE TABLE users_ratings(
+CREATE TABLE user_ratings(
         uid          INT       NOT NULL,
         eid          CHAR(11)       NOT NULL,
         rating       INT            NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE users_ratings(
         PRIMARY KEY (uid, eid)
 );
 
-CREATE TABLE users_comments(
+CREATE TABLE user_comments(
         uid          INT            NOT NULL,
         eid          CHAR(11)       NOT NULL,
         comment      VARCHAR(140)   NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE admin(
         rso_id       INT            NOT NULL,
         FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
         FOREIGN KEY (rso_id) REFERENCES rso (rso_id) ON DELETE CASCADE,
-        PRIMARY KEY (uid, rso_id)
+        PRIMARY KEY (rso_id)
 );
 
 
@@ -128,6 +128,13 @@ CREATE TABLE event_location(
         FOREIGN KEY (lid) REFERENCES location (lid) ON DELETE CASCADE,
         FOREIGN KEY (eid) REFERENCES events (eid) ON DELETE CASCADE,
         PRIMARY KEY (eid)
+);
+
+CREATE TABLE rso_member(
+        uid             INT            NOT NULL,
+        rso_id          INT            NOT NULL,
+        FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
+        FOREIGN KEY (rso_id) REFERENCES rso (rso_id) ON DELETE CASCADE
 );
 
 -- UCF students
@@ -185,21 +192,21 @@ INSERT INTO uni_location VALUES('1', '1');
 INSERT INTO uni_location VALUES('2', '2');
 INSERT INTO uni_location VALUES('3', '3');
 
-INSERT INTO users_attends VALUES('1', '1');
-INSERT INTO users_attends VALUES('2', '1');
-INSERT INTO users_attends VALUES('3', '1');
-INSERT INTO users_attends VALUES('4', '1');
-INSERT INTO users_attends VALUES('5', '1');
-INSERT INTO users_attends VALUES('6', '1');
-INSERT INTO users_attends VALUES('7', '1');
-INSERT INTO users_attends VALUES('8', '1');
-INSERT INTO users_attends VALUES('9', '1');
+INSERT INTO user_attends VALUES('1', '1');
+INSERT INTO user_attends VALUES('2', '1');
+INSERT INTO user_attends VALUES('3', '1');
+INSERT INTO user_attends VALUES('4', '1');
+INSERT INTO user_attends VALUES('5', '1');
+INSERT INTO user_attends VALUES('6', '1');
+INSERT INTO user_attends VALUES('7', '1');
+INSERT INTO user_attends VALUES('8', '1');
+INSERT INTO user_attends VALUES('9', '1');
 
 -- For the events pulled from the ucf upcoming events xml
 INSERT INTO rso (uid, school_code, name, num_members, active)
 VALUES ('10', '1', 'UCF XML Events', '5', TRUE);
 INSERT INTO rso (uid, school_code, name, num_members, active)
-VALUES('8', '1', 'Chess Club', '10', TRUE);
+VALUES('8', '1', 'Chess Club', '5', TRUE);
 INSERT INTO rso (uid, school_code, name, num_members, active)
 VALUES('9', '1', 'Aviation Club', '5', TRUE);
 
@@ -207,11 +214,34 @@ INSERT INTO admin VALUES('10', '1');
 INSERT INTO admin VALUES('8', '2');
 INSERT INTO admin VALUES('9', '3');
 
+INSERT INTO rso_member VALUES('1', '2');
+INSERT INTO rso_member VALUES('2', '2');
+INSERT INTO rso_member VALUES('3', '2');
+INSERT INTO rso_member VALUES('4', '2');
+INSERT INTO rso_member VALUES('8', '2');
+
+INSERT INTO rso_member VALUES('5', '3');
+INSERT INTO rso_member VALUES('6', '3');
+INSERT INTO rso_member VALUES('7', '3');
+INSERT INTO rso_member VALUES('9', '3');
+INSERT INTO rso_member VALUES('8', '3');
+
+
 INSERT INTO events VALUES('1', '2', 'First Chess Club Meeting', '1', 'samLinnaUcf@knights.ucf.edu', 'Social', '202-555-0120', '2017-07-30 13:30:00', '2017-07-30 14:00:00', 'UCF ENG1', '313', "The first chess club meeting of the semester, don't miss it!");
 INSERT INTO event_location VALUES('1', '1', '1', 'ENG1', '313');
 INSERT INTO events VALUES('2', '3', 'Aviation Club Test Flight', '1', 'oliveMacUcf@knights.ucf.edu', 'Social', '630-446-8851', '2017-08-02 10:30:00', '2017-08-02 12:00:00', 'UCF Lake Claire', '1', "The aviation club will be showing off the new drone they raised money for last semester");
 INSERT INTO event_location VALUES('2', '1', '1', 'Lake Claire', '1');
 
+DROP TRIGGER IF EXISTS add_user_attends_insert;
+
+delimiter //
+CREATE TRIGGER add_user_attends_insert AFTER INSERT ON users
+FOR EACH ROW
+BEGIN
+    INSERT INTO user_attends(uid, school_code)
+    VALUES(NEW.uid, NEW.school_code);
+END//
+delimiter ;
 
 DROP TRIGGER IF EXISTS check_active_rso_update;
 

@@ -11,7 +11,7 @@
   {
       $firstname = sanitizeString($_POST['firstname']);
       $lastname = sanitizeString($_POST['lastname']);
-      $school = sanitizeString($_POST['school']);
+      $school = $_POST['school'];
       $user = sanitizeString($_POST['user']);
       $pass = sanitizeString($_POST['pass']);
       $email = sanitizeString($_POST['email']);
@@ -45,7 +45,12 @@ echo  "<form method='post' action='signup.php'> $error
       <input type='text' placeholder='Enter Last Name' name='lastname' value = '$lastname' required>
 
       <label><strong>School</strong></label>
-      <input type='text' placeholder='Enter School' name='school' value = '$school'required>
+
+      <select name = 'school' required>
+        <option value='1'>UCF</option>
+        <option value='2'>UF</option>
+        <option value='3'>FSU</option>
+      </select>
 
       <label><strong>Username</strong></label>
       <input type='text' placeholder='Enter Username' name='user' value = '$user'required>
