@@ -16,7 +16,10 @@
     include 'php/calendar_builder.php';
     /* Calendar Declaration */
     echo '<h2>'.date('F', mktime(0,0,0,$month)).' '.$year.'</h2>';
-    echo build_calendar($month,$year);
+    $events = array();
+    $events = calendar_event_builder($month, $year);
+
+    echo build_calendar($month,$year, $events);
     ?>
   </div>
 

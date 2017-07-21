@@ -4,9 +4,38 @@
 
     require_once'calenda
 */
-require_once 'calendar_events.php';
+/*require_once 'calendar_events.php';*/
 
-function build_calendar($month, $year, $events= array()){
+require_once 'functions.php';
+
+
+function calendar_event_builder($month, $year){
+// Event Pull from DATABASE
+// Event Array to store events for the month
+$events = array();
+
+// SQL query to retrieve the events for the given month
+$query = "SELECT name, start_date
+            FROM events
+                WHERE MONTH(start_date) = $month AND
+                YEAR(start_date) = $year";
+
+$result = queryMysql($query) or die(mysqli_error());
+
+while($row = mysqli_fetch_array($result)) {
+    //$parse_time = strtotime($row['start_date']);
+    ////$parse_time = $parse_time->format('Y-m-d');
+    //$myDateTime = DateTime::createFromFormat('Y-m-d', $dateString);
+    //$parse_date = $myDateTime->format('d-m-Y');
+    $newDate = date("Y-n-j", strtotime($row["start_date"]));
+
+    $events[] = array($newDate, $row['name']);
+}
+
+return $events;
+}
+
+function build_calendar($month, $year, &$events){
 
   /* begin drawing table calendar */
   $calendar = '<table cellpadding= "0"; cellspacing="0"; class= "calendar">';
@@ -37,16 +66,16 @@ function build_calendar($month, $year, $events= array()){
   			/* add in the day number */
   			$calendar.= '<div class="day-number">'.$list_day.'</div>';
 
-  			/** QUERY THE DATABASE FOR AN ENTRY FOR THIS DAY !!  IF MATCHES FOUND, PRINT THEM !! **/
+  		/** QUERY THE DATABASE FOR AN ENTRY FOR THIS DAY !!  IF MATCHES FOUND, PRINT THEM !! **/
         $event_day = $year.'-'.$month.'-'.$list_day;
-        if(isset($events[$event_day])) {
-          foreach($events[$event_day] as $event) {
-            $calendar.= '<div class="event">'.$event['title'].'</div>';
-          }
-        }
-        else{
-  			     $calendar.= str_repeat('<p> </p>',2);
-        }
+
+            foreach($events as $event) {
+                if($event[0] == $event_day)
+                    $calendar.= '<div class="event">'.$event[1].'</div>';
+                else
+  			        $calendar.= str_repeat('<p> </p>',2);
+            }
+            
   		$calendar.= '</div></td>';
   		if($running_day == 6):
   			$calendar.= '</tr>';
@@ -75,21 +104,5 @@ function build_calendar($month, $year, $events= array()){
   	/* all done, return result */
   	return $calendar;
 }
-
-// Event Pull from DATABASE
-// Event Array to store events for the month
-$events = array();
-// SQL query to retrieve the events for the given month
-$query = "SELECT name, DATE_FORMAT(start_date,'%Y-%m-%D') AS event_date FROM events WHERE start_date LIKE '$year-$month%'";
-$result = queryMysql($query) or die('cannot get results!');
-while($row = mysql_fetch_assoc($result)) {
-	$events[$row['event_date']][] = $row;
-}
-
-
-
-
-
-
 
 ?>
