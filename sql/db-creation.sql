@@ -30,6 +30,8 @@ CREATE TABLE rso(
         uid           INT           NOT NULL,
         school_code   INT           NOT NULL,
         name          VARCHAR(255)  NOT NULL,
+        num_members   INT           NOT NULL,
+        active        BOOLEAN       NOT NULL,
         FOREIGN KEY (school_code) REFERENCES university (school_code) ON DELETE CASCADE,
         FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
         PRIMARY KEY (rso_id)
@@ -194,12 +196,12 @@ INSERT INTO users_attends VALUES('8', '1');
 INSERT INTO users_attends VALUES('9', '1');
 
 -- For the events pulled from the ucf upcoming events xml
-INSERT INTO rso (uid, school_code, name)
-VALUES ('10', '1', 'UCF XML Events');
-INSERT INTO rso (uid, school_code, name)
-VALUES('8', '1', 'Chess Club');
-INSERT INTO rso (uid, school_code, name)
-VALUES('9', '1', 'Aviation Club');
+INSERT INTO rso (uid, school_code, name, num_members, active)
+VALUES ('10', '1', 'UCF XML Events', '5', TRUE);
+INSERT INTO rso (uid, school_code, name, num_members, active)
+VALUES('8', '1', 'Chess Club', '10', TRUE);
+INSERT INTO rso (uid, school_code, name, num_members, active)
+VALUES('9', '1', 'Aviation Club', '5', TRUE);
 
 INSERT INTO admin VALUES('10', '1');
 INSERT INTO admin VALUES('8', '2');
