@@ -26,7 +26,7 @@ else $loggedin = FALSE;
 // Style sheet inclusions
 echo "<link rel='stylesheet' type='text/css' href='css/home.css'>"       .
      "<link rel='stylesheet' type='text/css' href='css/calendar.css'>"   .
-     "</head>";
+     "</head><body>";
 
 // Login Stuff
 if($loggedin)

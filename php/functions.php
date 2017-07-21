@@ -53,6 +53,16 @@ function destroySession()
   session_destroy();
 }
 
+// Sanitizes input strings to prevent malicious input from entering SQL db
+function sanitizeString($var)
+{
+  global $con;
+  $var = strip_tags($var);
+  $var = htmlentities($var);
+  $var = stripslashes($var);
+  return $con->real_escape_string($var);
+}
+
 
 
  ?>
