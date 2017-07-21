@@ -27,8 +27,8 @@
           $error = "Username already exists<br><br>";
         else
         {
-          $sql ="INSERT INTO users (first_name, last_name, school_code, username, password, email)
-                 VALUES($firstname, $lastname, $school, $user, $pass, $email)";
+          $sql ="INSERT INTO users (first_name, last_name, school_code, username, password, email)"
+                 . "VALUES('$firstname', '$lastname', '$school', '$user', '$pass', '$email')";
           queryMysql($sql);
           echo "Inserted Values: " .
                 $firstname         .
