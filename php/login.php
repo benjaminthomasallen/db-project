@@ -8,16 +8,19 @@
     $user = sanitizeString($_POST['user']);
     $pass = sanitizeString($_POST['pass']);
 
-    $result = queryMysql("SELECT username,password,uid FROM users
+    $result = queryMysql("SELECT username,password, uid FROM users
                           WHERE username='$user' AND password='$pass'");
 
       if($result->num_rows == 0)
         $error = "<span class ='error'>Username/Password $user, $pass, Incorrect</span><br><br>";
       else
       {
+        while($row = $result->fetch_assoc()) {
+            $uid = $row['uid'];
+        }
         $_SESSION['user']= $user;
         $_SESSION['pass']= $pass;
-        $_SESSION['uid']= $uid;
+        $_SESSION['uid'] = $uid;
         die("You are now logged in. Checkout our <a href='../index.php'>calendar</a> for upcoming events!<br><br>");
       }
 
