@@ -22,7 +22,7 @@ if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         echo "<tr><td><strong>" . $row["name"] . "</strong></td></tr>";
-        echo "<tr><td><a href='event_page.php?rso_id=" . $row['rso_id'] ."'> Event page </a></td></tr>";
+        echo "<tr><td><a href='event_page.php?rso_id=" . $row['rso_id'] ."'> RSO page </a></td></tr>";
         echo "<tr><td>" . "RSO Admin: " . $row["first_name"] . " " . $row["last_name"] . "</td></tr>";
         echo '<tr class="bordered"><td></td></tr>';
     }
