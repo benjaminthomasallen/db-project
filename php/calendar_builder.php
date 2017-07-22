@@ -9,7 +9,7 @@
 require_once 'functions.php';
 
 
-function calendar_event_builder($month, $year){
+function calendar_event_builder($month, $year, $privacy){
 // Event Pull from DATABASE
 // Event Array to store events for the month
 $events = array();
@@ -17,8 +17,9 @@ $events = array();
 // SQL query to retrieve the events for the given month
 $query = "SELECT name, start_date
             FROM events
-                WHERE MONTH(start_date) = $month AND
-                YEAR(start_date) = $year";
+                WHERE MONTH(start_date) = '$month' AND
+                YEAR(start_date) = '$year' AND
+                visibility = '$privacy'";
 
 $result = queryMysql($query) or die(mysqli_error());
 
