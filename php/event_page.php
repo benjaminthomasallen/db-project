@@ -21,32 +21,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
          die("<h4>Added to RSO</h4><br><br>");
      }
-
-
 }
 
 if($_SERVER['REQUEST_METHOD'] <> 'POST')
 {
 $pull_rso = $_GET['rso_id'];
 
-
-/*$sql = "SELECT
-            a.name as rso_name,
-            a.num_members,
-            a.active,
-            b.uid,
-            c.first_name,
-            c.last_name,
-            c.email,
-            d.name as event_name
-            FROM rso a
-                JOIN rso_member b
-                    ON a.rso_id = b.rso_id
-                JOIN users c
-                    ON b.uid = c.uid
-                JOIN events d
-                    ON a.rso_id = d.rso_id
-                WHERE a.rso_id = $pull_rso";*/
 $sql = "SELECT
             name,
             num_members,
