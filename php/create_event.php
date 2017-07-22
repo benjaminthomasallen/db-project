@@ -4,7 +4,7 @@
 
 
   // Variable Init
-  $error = $eid = $rid = $name = $visibility = $email = $type = $phone = $start_time = $end_time = $location = '';
+  $error = $eid = $rid = $name = $visibility = $email = $type = $phone = $start_time = $end_time = $location = $room = '';
   if(isset($_SESSION['eid'])) destroySession();
 
   if(isset($_POST['eid']))
@@ -19,16 +19,30 @@
       $start_time = sanitizeString($_POST['start_time']);
       $end_time = sanitizeString($_POST['end_time']);
       $location = sanitizeString($_POST['location']);
+      $room = sanitizeString($_POST['room']);
 
       $sql = "SELECT * FROM events WHERE eid='$eid'";
       $result = queryMysql($sql);
 
       if($result->num_rows)
         $error = "Event with that ID already exists<br><br>";
+
+
+      $sql = "SELECT start_date,
+                     room
+              FROM events
+                WHERE DATE(start_date) = DATE('$start_time') AND
+                room = '$room'";
+
+      $result = queryMysql($sql);
+
+      if($result->num_rows)
+        $error = "There is already and event scheduled during that time in room $room<br><br>";
+
       else
       {
-        $sql ="INSERT INTO events (eid,rso_id,name,visibility,email,type,phone,start_date,end_date,location)"
-               ."VALUES('$eid', '$rid', '$name','$visibility', '$email', '$type', '$phone', '$start_time','$end_time', '$location')";
+        $sql ="INSERT INTO events (eid,rso_id,name,visibility,email,type,phone,start_date,end_date,location,room)"
+               ."VALUES('$eid', '$rid', '$name','$visibility', '$email', '$type', '$phone', '$start_time','$end_time', '$location', '$room')";
         queryMysql($sql);
         die("<h4>Event Created</h4> See the <a href='../index.php'>Calendar</a> <br><br>");
       }
@@ -75,6 +89,9 @@ echo "<div class='cEvent'><h3>Please enter Event Details</h3>".
 
           <label><strong>Location</strong></label>
           <input type='text' name='location' value = '$location' required>
+
+          <label><strong>Room</strong></label>
+          <input type='text' name='room' value = '$room' required>
 
           <button type='submit'>Create Event</button>
         </div>

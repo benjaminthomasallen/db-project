@@ -259,6 +259,16 @@ BEGIN
 END//
 delimiter ;
 
+DROP TRIGGER IF EXISTS reduce_num_members_rso;
+
+delimiter //
+CREATE TRIGGER reduce_num_members_rso AFTER DELETE ON rso_member
+FOR EACH ROW
+BEGIN
+    UPDATE rso SET num_members = num_members - 1 WHERE rso_id = OLD.rso_id;
+END//
+delimiter ;
+
 
 DROP TRIGGER IF EXISTS add_user_attends_insert;
 
