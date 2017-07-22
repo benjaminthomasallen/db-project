@@ -17,7 +17,7 @@
     /* Calendar Declaration */
     echo '<h2>'.date('F', mktime(0,0,0,$month)).' '.$year.'</h2>';
     $events = array();
-    $events = calendar_event_builder($month, $year);
+    $events = calendar_event_builder($month, $year, $privacy);
 
     echo build_calendar($month,$year, $events);
     ?>
