@@ -6,6 +6,16 @@
    Public, Private, and RSO views. As well as RSO selection.
 */
 
+/* select events public, private, rso */
+$pArray= array('Public', 'RSO', 'Private');
+$select_privacy_control = '<select name="privacy" id="privacy">'.
+													'<option value="1" selected ="selected">'.
+													'Public </option>'.
+													'<option value="2">'.
+													'RSO</option>'.
+													'<option value="3">'.
+													'Private </option></select>';
+
 /* select month control */
 $select_month_control = '<select name="month" id="month">';
 for($x = 1; $x <= 12; $x++) {
@@ -22,13 +32,13 @@ for($x = ($year-floor($year_range/2)); $x <= ($year+floor($year_range/2)); $x++)
 $select_year_control.= '</select>';
 
 /* "next month" control */
-$next_month_link = '<a href="?month='.($month != 12 ? $month + 1 : 1).'&year='.($month != 12 ? $year : $year + 1).'" class="control">Next Dimension >></a>';
+$next_month_link = '<a href="?month='.($month != 12 ? $month + 1 : 1).'&year='.($month != 12 ? $year : $year + 1).'" class="control">Next Month >></a>';
 
 /* "previous month" control */
-$previous_month_link = '<a href="?month='.($month != 1 ? $month - 1 : 12).'&year='.($month != 1 ? $year : $year - 1).'" class="control"><< 	Previous Dimension</a>';
+$previous_month_link = '<a href="?month='.($month != 1 ? $month - 1 : 12).'&year='.($month != 1 ? $year : $year - 1).'" class="control"><< 	Previous Month</a>';
 
 /* bringing the controls together */
-$controls = '<form method="get">'.$select_month_control.$select_year_control.' <input type="submit" name="submit" value="Warp Time" /><br>'.$previous_month_link.'     '.$next_month_link.' </form>';
+$controls = '<form method="get">'.$select_privacy_control.$select_month_control.$select_year_control.' <input type="submit" name="submit" value="Go" /><br>'.$previous_month_link.'     '.$next_month_link.' </form>';
 
 echo $controls;
 ?>

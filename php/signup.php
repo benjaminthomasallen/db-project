@@ -36,32 +36,32 @@
   }
 
 echo  "<form method='post' action='signup.php'> $error
-    <!-- Username/Password and Submission -->
-    <div class='fieldname'>
-      <label><strong>First Name</strong></label>
-      <input type='text' maxlength='16' placeholder='Enter First Name' name='firstname' value = '$firstname' required>
+        <!-- Username/Password and Submission -->
+        <div class='fieldname'>
+        
+          <label><strong>First Name</strong></label>
+          <input type='text' maxlength='16' placeholder='Enter First Name' name='firstname' value = '$firstname' required>
 
-      <label><strong>Last Name</strong></label>
-      <input type='text' placeholder='Enter Last Name' name='lastname' value = '$lastname' required>
+          <label><strong>Last Name</strong></label>
+          <input type='text' placeholder='Enter Last Name' name='lastname' value = '$lastname' required>
 
-      <label><strong>School</strong></label>
+          <label><strong>School</strong></label>
+          <select name = 'school' required>
+            <option value='1'>UCF</option>
+            <option value='2'>UF</option>
+            <option value='3'>FSU</option>
+          </select>
 
-      <select name = 'school' required>
-        <option value='1'>UCF</option>
-        <option value='2'>UF</option>
-        <option value='3'>FSU</option>
-      </select>
+          <label><strong>Username</strong></label>
+          <input type='text' placeholder='Enter Username' name='user' value = '$user'required>
 
-      <label><strong>Username</strong></label>
-      <input type='text' placeholder='Enter Username' name='user' value = '$user'required>
+          <label><strong>Password</strong></label>
+          <input type='password' placeholder='Enter Password' name='pass' value = '$pass'required>
 
-      <label><strong>Password</strong></label>
-      <input type='password' placeholder='Enter Password' name='pass' value = '$pass'required>
+          <label><strong>Email</strong></label>
+          <input type='text' placeholder='Enter Email' name='email' value = '$email' required>
 
-      <label><strong>Email</strong></label>
-      <input type='text' placeholder='Enter Email' name='email' value = '$email' required>
-
-      <button type='submit'>Sign-Up</button>
+          <button type='submit'>Sign-Up</button>
 
     </div>
   </form>
