@@ -18,6 +18,7 @@ $username= ' Guest';
 if(isset($_SESSION['user']))
 {
   $user = $_SESSION['user'];
+  $uid = $_SESSION['uid'];
   $loggedin = TRUE;
   $username = ' $user';
 }
