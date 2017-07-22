@@ -62,7 +62,7 @@ $result = queryMysql($sql);
 
 if ($result->num_rows > 0) {
     echo "<table>";
-    echo "<tr><td>" . "Members: " . "</td></tr>";
+    echo "<tr><td><strong>" . "Members: " . "</strong></td></tr>";
     // output data of each row
     while($row = $result->fetch_assoc()) {
         echo "<tr><td>" . $row["first_name"] . " " . $row["last_name"] . "</td></tr>";
@@ -75,5 +75,35 @@ if ($result->num_rows > 0) {
 echo "<br>";
 
 
+$sql = "SELECT
+            a.name,
+            a.start_date,
+            a.end_date,
+            a.location,
+            a.room,
+            a.description
+        FROM
+            events a
+        WHERE a.rso_id = $pull_rso";
 
+$result = queryMysql($sql);
+
+if ($result->num_rows > 0) {
+            echo "<table>";
+            echo "<tr><td><strong>" . "Events" . "</strong></td></tr>";
+            // output data of each row
+            while($row = $result->fetch_assoc()) {
+                $stime = strtotime($row['start_date']);
+                $etime = strtotime($row['end_date']);
+
+                echo "<tr><td>" . $row["name"] . "</td></tr>";
+                echo "<tr><td>" . date('l F d, Y g:i a', $stime) . " through " . date('g:i a', $etime) . "</td></tr>";
+                echo "<tr><td>" . $row["location"] . " " . $row["room"] . "</td></tr>";
+                echo "<tr><td>" . $row["description"] . "</td></tr>";
+                echo '<tr class="bordered"><td></td></tr>';
+            }
+            echo "</table>";
+        } else {
+            echo "0 results";
+        }
  ?>
