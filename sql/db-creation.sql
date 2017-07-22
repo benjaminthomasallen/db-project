@@ -137,6 +137,16 @@ CREATE TABLE rso_member(
         FOREIGN KEY (rso_id) REFERENCES rso (rso_id) ON DELETE CASCADE
 );
 
+INSERT INTO university (name, abbrev, description, student_pop, website)
+VALUES('University of Central Florida', 'UCF', 'The University of Central Florida is a thriving preeminent research university located in metropolitan Orlando. With more than 64,000 students, UCF is one of the largest universities in the U.S. In addition to its impressive size and strength, UCF is ranked as a best-value university by The Princeton Review and Kiplinger’s, as well as one of the nation’s most affordable colleges by Forbes. The university benefits from a diverse faculty and staff who create a welcoming environment and opportunities for all students to grow, learn and succeed.', '64318', 'https://www.ucf.edu');
+INSERT INTO university (name, abbrev, description, student_pop, website)
+VALUES('University of Florida', 'UF', "At the University of Florida, we are a people of purpose. We're committed to challenging convention and ourselves. We see things not as they are, but as they could be. And we strive for a greater impact: one measured in people helped and lives improved.", '52286', 'http://www.ufl.edu/');
+INSERT INTO university (name, abbrev, description, student_pop, website)
+VALUES('Florida State University', 'FSU', "One of the nation's elite research universities, Florida State University preserves, expands, and disseminates knowledge in the sciences, technology, arts, humanities, and professions, while embracing a philosophy of learning strongly rooted in the traditions of the liberal arts and critical thinking.", '41867', 'http://www.fsu.edu/');
+
+
+
+
 -- UCF students
 INSERT INTO users (first_name, last_name, school_code, username, password, email)
 VALUES('John', 'Doe', '1', 'johndUcf', 'pw', 'johndUcf@knights.ucf.edu');
@@ -152,6 +162,7 @@ INSERT INTO users (first_name, last_name, school_code, username, password, email
 VALUES('Gavin', 'Brent', '1', 'gavBrentUcf', 'pw', 'gavBrentUcf@knights.ucf.edu');
 INSERT INTO users (first_name, last_name, school_code, username, password, email)
 VALUES('Savannah', 'Brown', '1', 'savBrownUcf', 'pw', 'savBrownUcf@knights.ucf.edu');
+
 -- admins
 INSERT INTO users (first_name, last_name, school_code, username, password, email)
 VALUES('Samir', 'Linna', '1', 'samLinnaUcf', 'pw', 'samLinnaUcf@knights.ucf.edu');
@@ -174,12 +185,6 @@ INSERT INTO student VALUES('9');
 
 INSERT INTO super_admin VALUES('10');
 
-INSERT INTO university (name, abbrev, description, student_pop, website)
-VALUES('University of Central Florida', 'UCF', 'The University of Central Florida is a thriving preeminent research university located in metropolitan Orlando. With more than 64,000 students, UCF is one of the largest universities in the U.S. In addition to its impressive size and strength, UCF is ranked as a best-value university by The Princeton Review and Kiplinger’s, as well as one of the nation’s most affordable colleges by Forbes. The university benefits from a diverse faculty and staff who create a welcoming environment and opportunities for all students to grow, learn and succeed.', '64318', 'https://www.ucf.edu');
-INSERT INTO university (name, abbrev, description, student_pop, website)
-VALUES('University of Florida', 'UF', "At the University of Florida, we are a people of purpose. We're committed to challenging convention and ourselves. We see things not as they are, but as they could be. And we strive for a greater impact: one measured in people helped and lives improved.", '52286', 'http://www.ufl.edu/');
-INSERT INTO university (name, abbrev, description, student_pop, website)
-VALUES('Florida State University', 'FSU', "One of the nation's elite research universities, Florida State University preserves, expands, and disseminates knowledge in the sciences, technology, arts, humanities, and professions, while embracing a philosophy of learning strongly rooted in the traditions of the liberal arts and critical thinking.", '41867', 'http://www.fsu.edu/');
 
 INSERT INTO location (name, address, latitude, longitude)
 VALUES('UCF Main Campus', '4000 Central Florida Blvd, Orlando, FL 32816', '28.6024', '-81.2001');
@@ -204,7 +209,7 @@ INSERT INTO user_attends VALUES('9', '1');
 
 -- For the events pulled from the ucf upcoming events xml
 INSERT INTO rso (uid, school_code, name, num_members, active)
-VALUES ('10', '1', 'UCF XML Events', '5', TRUE);
+VALUES ('10', '1', 'UCF XML Events', '10', TRUE);
 INSERT INTO rso (uid, school_code, name, num_members, active)
 VALUES('8', '1', 'Chess Club', '5', TRUE);
 INSERT INTO rso (uid, school_code, name, num_members, active)
@@ -226,11 +231,34 @@ INSERT INTO rso_member VALUES('7', '3');
 INSERT INTO rso_member VALUES('9', '3');
 INSERT INTO rso_member VALUES('8', '3');
 
+INSERT INTO rso_member VALUES('1', '1');
+INSERT INTO rso_member VALUES('2', '1');
+INSERT INTO rso_member VALUES('3', '1');
+INSERT INTO rso_member VALUES('4', '1');
+INSERT INTO rso_member VALUES('5', '1');
+INSERT INTO rso_member VALUES('6', '1');
+INSERT INTO rso_member VALUES('7', '1');
+INSERT INTO rso_member VALUES('8', '1');
+INSERT INTO rso_member VALUES('9', '1');
+INSERT INTO rso_member VALUES('10', '1');
 
 INSERT INTO events VALUES('1', '2', 'First Chess Club Meeting', '1', 'samLinnaUcf@knights.ucf.edu', 'Social', '202-555-0120', '2017-07-30 13:30:00', '2017-07-30 14:00:00', 'UCF ENG1', '313', "The first chess club meeting of the semester, don't miss it!");
 INSERT INTO event_location VALUES('1', '1', '1', 'ENG1', '313');
 INSERT INTO events VALUES('2', '3', 'Aviation Club Test Flight', '1', 'oliveMacUcf@knights.ucf.edu', 'Social', '630-446-8851', '2017-08-02 10:30:00', '2017-08-02 12:00:00', 'UCF Lake Claire', '1', "The aviation club will be showing off the new drone they raised money for last semester");
 INSERT INTO event_location VALUES('2', '1', '1', 'Lake Claire', '1');
+
+
+
+DROP TRIGGER IF EXISTS set_num_members_rso;
+
+delimiter //
+CREATE TRIGGER set_num_members_rso AFTER INSERT ON rso_member
+FOR EACH ROW
+BEGIN
+    UPDATE rso SET num_members = num_members + 1 WHERE rso_id = NEW.rso_id;
+END//
+delimiter ;
+
 
 DROP TRIGGER IF EXISTS add_user_attends_insert;
 
@@ -240,6 +268,8 @@ FOR EACH ROW
 BEGIN
     INSERT INTO user_attends(uid, school_code)
     VALUES(NEW.uid, NEW.school_code);
+    INSERT INTO rso_member(uid, rso_id)
+    VALUES(NEW.uid, '1');
 END//
 delimiter ;
 
@@ -252,6 +282,10 @@ BEGIN
     IF (NEW.num_members < 5) THEN
         SET NEW.active = FALSE;
     END IF;
+
+    IF(NEW.num_members > 4) THEN
+        SET NEW.active = TRUE;
+    END IF;
 END//
 delimiter ;
 
@@ -263,6 +297,10 @@ FOR EACH ROW
 BEGIN
     IF (NEW.num_members < 5) THEN
         SET NEW.active = FALSE;
+    END IF;
+
+    IF(NEW.num_members > 4) THEN
+        SET NEW.active = TRUE;
     END IF;
 END//
 delimiter ;

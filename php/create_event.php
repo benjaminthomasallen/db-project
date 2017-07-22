@@ -27,7 +27,7 @@
         $error = "Event with that ID already exists<br><br>";
       else
       {
-        $sql ="INSERT INTO events (eid,rid,name,visibility,email,type,phone,start_time,end_time,location)"
+        $sql ="INSERT INTO events (eid,rso_id,name,visibility,email,type,phone,start_date,end_date,location)"
                ."VALUES('$eid', '$rid', '$name','$visibility', '$email', '$type', '$phone', '$start_time','$end_time', '$location')";
         queryMysql($sql);
         die("<h4>Event Created</h4> See the <a href='../index.php'>Calendar</a> <br><br>");

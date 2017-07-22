@@ -106,4 +106,16 @@ if ($result->num_rows > 0) {
         } else {
             echo "0 results";
         }
+
+echo  " <html>
+        <body>
+        <form method='post' action='event_page.php'>
+        <div class='container'>
+            <input type='submit' name='submit' class='button' value='Join RSO' onClick='' />
+        </div>
+        </form>
+        </body>
+        </html>";
+
+
  ?>

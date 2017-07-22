@@ -10,8 +10,7 @@ $sql = "SELECT
         FROM
             rso a
                 JOIN users b
-                    ON a.uid = b.uid
-                        WHERE a.rso_id <> 1";
+                    ON a.uid = b.uid";
 
 $result = queryMysql($sql);
 

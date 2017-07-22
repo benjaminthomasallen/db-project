@@ -8,7 +8,7 @@
     $user = sanitizeString($_POST['user']);
     $pass = sanitizeString($_POST['pass']);
 
-    $result = queryMysql("SELECT username,password FROM users
+    $result = queryMysql("SELECT username,password,uid FROM users
                           WHERE username='$user' AND password='$pass'");
 
       if($result->num_rows == 0)
@@ -17,6 +17,7 @@
       {
         $_SESSION['user']= $user;
         $_SESSION['pass']= $pass;
+        $_SESSION['uid']= $uid;
         die("You are now logged in. Checkout our <a href='../index.php'>calendar</a> for upcoming events!<br><br>");
       }
 
