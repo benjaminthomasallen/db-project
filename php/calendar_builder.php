@@ -75,7 +75,7 @@ function build_calendar($month, $year, &$events){
                 else
   			        $calendar.= str_repeat('<p> </p>',2);
             }
-            
+
   		$calendar.= '</div></td>';
   		if($running_day == 6):
   			$calendar.= '</tr>';
