@@ -137,6 +137,8 @@ CREATE TABLE rso_member(
         FOREIGN KEY (rso_id) REFERENCES rso (rso_id) ON DELETE CASCADE
 );
 
+
+
 INSERT INTO university (name, abbrev, description, student_pop, website)
 VALUES('University of Central Florida', 'UCF', 'The University of Central Florida is a thriving preeminent research university located in metropolitan Orlando. With more than 64,000 students, UCF is one of the largest universities in the U.S. In addition to its impressive size and strength, UCF is ranked as a best-value university by The Princeton Review and Kiplinger’s, as well as one of the nation’s most affordable colleges by Forbes. The university benefits from a diverse faculty and staff who create a welcoming environment and opportunities for all students to grow, learn and succeed.', '64318', 'https://www.ucf.edu');
 INSERT INTO university (name, abbrev, description, student_pop, website)
