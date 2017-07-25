@@ -115,7 +115,7 @@ if ($result->num_rows > 0) {
 
 echo  " <html>
         <body>
-        <form method='post' action='event_page.php'>
+        <form method='post' action='rso_page.php'>
             <button> Join RSO </button><input type ='hidden' name='rsoid' value = '$pull_rso' />
         </form>
         </body>
