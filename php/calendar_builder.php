@@ -31,6 +31,9 @@ while($row = mysqli_fetch_array($result)) {
     $newDate = date("Y-n-j", strtotime($row["start_date"]));
 
     $events[] = array($newDate, $row['name']);
+
+    print_r($events);
+
 }
 
 return $events;
