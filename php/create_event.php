@@ -46,6 +46,8 @@
       }
 
   }
+
+
 echo "<div class='cEvent'><h3>Please enter Event Details</h3>".
      "<form method='post' action='create_event.php'> $error
         <!-- Event Creation-->
