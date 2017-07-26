@@ -48,8 +48,11 @@ $sql = "SELECT
         WHERE b.eid = $pull_eid";
 
 $result = queryMysql($sql);
-
-if ($result->num_rows > 0)
+if(!$result)
+{
+  echo "<h4>Be the first to leave us a comment!</h4>";
+}
+else if ($result->num_rows > 0)
 {
     echo "<strong>Comments: </strong></br><table>";
     while($row = $result->fetch_assoc())
