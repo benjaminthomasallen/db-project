@@ -133,6 +133,7 @@ CREATE TABLE event_location(
 CREATE TABLE rso_member(
         uid             INT            NOT NULL,
         rso_id          INT            NOT NULL,
+        PRIMARY KEY(uid , rso_id),
         FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
         FOREIGN KEY (rso_id) REFERENCES rso (rso_id) ON DELETE CASCADE
 );

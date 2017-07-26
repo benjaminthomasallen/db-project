@@ -1,30 +1,6 @@
 <?php
 require_once 'header.php';
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //echo $_POST['rsoid'];
-
-    $rsoid = $_POST['rsoid'];
-
-
-    $sql = "SELECT * FROM rso_member WHERE $rsoid = rso_id AND $uid = uid";
-    $result = queryMysql($sql);
-
-    if($result->num_rows)
-      $error = "You are already a member of that RSO<br><br>";
-
-     else
-     {
-         $sql = "INSERT INTO rso_member(uid, rso_id)"
-                . "VALUES('$uid', '$rsoid')";
-         queryMysql($sql);
-
-         die("<h4>Added to RSO</h4><br><br>");
-     }
-}
-
-if($_SERVER['REQUEST_METHOD'] <> 'POST')
-{
 $pull_rso = $_GET['rso_id'];
 
 $sql = "SELECT
@@ -33,7 +9,6 @@ $sql = "SELECT
             active
         FROM rso
             WHERE rso_id = $pull_rso";
-
 $result = queryMysql($sql);
 
 if ($result->num_rows > 0) {
@@ -109,17 +84,19 @@ if ($result->num_rows > 0) {
                 echo '<tr class="bordered"><td></td></tr>';
             }
             echo "</table>";
-        } else {
-            echo "0 results";
-        }
+} else {
+      echo "<strong>No Events for this RSO</strong>";
+}
 
 echo  " <html>
         <body>
-        <form method='post' action='rso_page.php'>
+        <form method='post' action='join_rso.php'>
             <button> Join RSO </button><input type ='hidden' name='rsoid' value = '$pull_rso' />
         </form>
+        <form method='post' action='leave_rso.php'>
+            <button> Leave RSO </button><input type ='hidden' name='rsoid' value= '$pull_rso' />
         </body>
         </html>";
 
-}
+
  ?>
