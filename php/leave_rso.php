@@ -11,7 +11,9 @@
 
       if($result->num_rows)
       {
-        $sql = "DELETE FROM rso_member rso WHERE rso.uid = '$uid' AND rso.rsoid = '$rsoid';";
+        $sql = "DELETE FROM rso_member
+                    WHERE rso_member.uid = '$uid' AND
+                    rso_member.rso_id = '$rsoid'";
         queryMysql($sql);
         die("<h4>Removed from RSO</h4>");
       }
