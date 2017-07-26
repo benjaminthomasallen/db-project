@@ -62,22 +62,22 @@ CREATE TABLE user_attends(
         PRIMARY KEY (uid, school_code)
 );
 
-CREATE TABLE user_ratings(
+/*CREATE TABLE user_ratings(
         uid          INT       NOT NULL,
         eid          CHAR(11)       NOT NULL,
         rating       INT            NOT NULL,
         FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
         FOREIGN KEY (eid) REFERENCES events (eid) ON DELETE CASCADE,
         PRIMARY KEY (uid, eid)
-);
+);*/
 
 CREATE TABLE user_comments(
         uid          INT            NOT NULL,
         eid          CHAR(11)       NOT NULL,
         comment      VARCHAR(140)   NOT NULL,
+        rating       INT            NOT NULL,
         FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
-        FOREIGN KEY (eid) REFERENCES events (eid) ON DELETE CASCADE,
-        PRIMARY KEY (uid, eid)
+        FOREIGN KEY (eid) REFERENCES events (eid) ON DELETE CASCADE
 );
 
 CREATE TABLE student(

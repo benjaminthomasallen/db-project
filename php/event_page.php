@@ -32,4 +32,25 @@ if ($result->num_rows >0)
         echo "<tr><td class=indent>" . $row["location"] . " " . $row["room"] . "</td></tr>";
         echo "<tr><td class=indent>" . $row["description"] . "</td></tr>";
     }
+    echo "</table></br></body>";
 }
+
+echo"<form method='post' action='post_comment.php'>
+
+  Comment:
+  </br>
+  <textarea name='comment' id='comment'></textarea>
+  </br>
+  <input type='radio' name='rating' value='1'> 1
+  <input type='radio' name='rating' value='2'> 2
+  <input type='radio' name='rating' value='3'> 3
+  <input type='radio' name='rating' value='4'> 4 
+  <input type='radio' name='rating' value='5'> 5 </br>
+
+  </br>
+
+
+  <button> Submit comment </button><input type ='hidden' name='eid' value = '$pull_eid'/>";
+
+
+?>
