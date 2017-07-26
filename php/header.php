@@ -27,6 +27,7 @@ else $loggedin = FALSE;
 // Style sheet inclusions
 echo "<link rel='stylesheet' type='text/css' href='../css/home.css'>"       .
      "<link rel='stylesheet' type='text/css' href='../css/calendar.css'>"   .
+     "<style>td.indent{ padding-left: 1.8em }</style>"                       .
      "</head><body>".
      " <!-- Top Navigation Bar -->
        <nav class='navbar'>

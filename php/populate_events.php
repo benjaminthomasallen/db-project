@@ -8,7 +8,8 @@ $sql = "SELECT
             a.end_date,
             a.location,
             a.room,
-            a.description
+            a.description,
+            a.eid
         FROM
             events a";
 
@@ -25,9 +26,10 @@ if ($result->num_rows > 0) {
         $etime = strtotime($row['end_date']);
 
         echo "<tr><td><strong>" . $row["name"] . "</strong></td></tr>";
-        echo "<tr><td>" . date('l F d, Y g:i a', $stime) . " through " . date('g:i a', $etime) . "</td></tr>";
-        echo "<tr><td>" . $row["location"] . " " . $row["room"] . "</td></tr>";
-        echo "<tr><td>" . $row["description"] . "</td></tr>";
+        echo "<tr><td><a href='event_page.php?eid=" . $row['eid'] ."'> Event page </a></td></tr>";
+        echo "<tr><td class=indent>" . date('l F d, Y g:i a', $stime) . " through " . date('g:i a', $etime) . "</td></tr>";
+        echo "<tr><td class=indent>" . $row["location"] . " " . $row["room"] . "</td></tr>";
+        echo "<tr><td class=indent>" . $row["description"] . "</td></tr>";
         echo '<tr class="bordered"><td></td></tr>';
     }
     echo "</table>";
