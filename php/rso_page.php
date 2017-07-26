@@ -55,7 +55,16 @@ if ($result->num_rows > 0) {
 
 echo "<br>";
 
+// JOIN OR LEAVE RSO
+echo  "
+        <form method='post' action='join_rso.php'>
+            <button> Join RSO </button><input type ='hidden' name='rsoid' value = '$pull_rso' />
+        </form>
+        <form method='post' action='leave_rso.php'>
+            <button> Leave RSO </button><input type ='hidden' name='rsoid' value= '$pull_rso' />
+        <br><br>";
 
+// FILL OUT EVENTS
 $sql = "SELECT
             a.name,
             a.start_date,
@@ -69,7 +78,8 @@ $sql = "SELECT
 
 $result = queryMysql($sql);
 
-if ($result->num_rows > 0) {
+if ($result->num_rows > 0)
+{
             echo "<table>";
             echo "<tr><td><strong>" . "Events" . "</strong></td></tr>";
             // output data of each row
@@ -84,19 +94,13 @@ if ($result->num_rows > 0) {
                 echo '<tr class="bordered"><td></td></tr>';
             }
             echo "</table>";
-} else {
-      echo "<strong>No Events for this RSO</strong>";
+}
+else
+{
+    echo "<strong>No Events for this RSO</strong>";
 }
 
-echo  " <html>
-        <body>
-        <form method='post' action='join_rso.php'>
-            <button> Join RSO </button><input type ='hidden' name='rsoid' value = '$pull_rso' />
-        </form>
-        <form method='post' action='leave_rso.php'>
-            <button> Leave RSO </button><input type ='hidden' name='rsoid' value= '$pull_rso' />
-        </body>
+
+echo     "</body>
         </html>";
-
-
  ?>
