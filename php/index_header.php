@@ -34,6 +34,7 @@ echo "<link rel='stylesheet' type='text/css' href='css/home.css'>"             .
          <a href='php/populate_rso.php' class='navbtn'> RSO's </a>
          <a href='php/create_event.php' class='navbtn'> Create Event </a>
          <a href='php/login.php' class='navbtn'> Login/Register </a>
+         <a href='php/create_university.php' class='navbtn'> Create University </a>
        </nav>  "                                                               ;
 
 // Login Stuff

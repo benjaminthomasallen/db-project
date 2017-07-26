@@ -1,8 +1,6 @@
 <?php
   require_once 'header.php';
 
-
-
   // Variable Init
   $error = $eid = $rid = $name = $visibility = $email = $type = $phone = $start_time = $end_time = $location = $room = '';
   if(isset($_SESSION['eid'])) destroySession();
