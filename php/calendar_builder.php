@@ -32,8 +32,6 @@ while($row = mysqli_fetch_array($result)) {
 
     $events[] = array($newDate, $row['name']);
 
-    print_r($events);
-
 }
 
 return $events;
