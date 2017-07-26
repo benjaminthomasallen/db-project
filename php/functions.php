@@ -23,8 +23,9 @@ $con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname) or
 /* check the date selections in or default to previous */
 $month = (int) (isset($_GET['month']) ? $_GET['month'] : date('m'));
 $year = (int)  (isset($_GET['year']) ? $_GET['year'] : date('Y'));
+$privacy = (int) (isset($_GET['privacy']) ? $_GET['privacy'] : 1);
 
-$privacy = 1;
+
 /* FUNCTION DEFINITIONS */
 
 //Converts numeric month to month name
