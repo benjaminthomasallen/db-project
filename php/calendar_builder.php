@@ -24,10 +24,6 @@ $query = "SELECT name, start_date
 $result = queryMysql($query) or die(mysqli_error());
 
 while($row = mysqli_fetch_array($result)) {
-    //$parse_time = strtotime($row['start_date']);
-    ////$parse_time = $parse_time->format('Y-m-d');
-    //$myDateTime = DateTime::createFromFormat('Y-m-d', $dateString);
-    //$parse_date = $myDateTime->format('d-m-Y');
     $newDate = date("Y-n-j", strtotime($row["start_date"]));
 
     $events[] = array($newDate, $row['name']);
