@@ -15,10 +15,10 @@
                     WHERE rso_member.uid = '$uid' AND
                     rso_member.rso_id = '$rsoid'";
         queryMysql($sql);
-        die("<h4>Removed from RSO</h4>");
+        die("<h4>Removed from RSO</h4><a href='populate_rso.php'>Return</a>");
       }
       else
-        $error = "<br> <h4>You are not a member of that RSO</h4><br>";
+        $error = "<br> <h4>You are not a member of that RSO</h4><a href='populate_rso.php'>Return</a><br>";
 
       echo $error;
   }

@@ -10,7 +10,7 @@
       $result = queryMysql($sql);
 
       if($result->num_rows)
-        $error = "<br> <br>You are already a member of that RSO<br><br>";
+        $error = "<br> <br>You are already a member of that RSO<br><br><a href='populate_rso.php'>Return</a>";
 
        else
        {
@@ -18,7 +18,7 @@
                   . "VALUES('$uid', '$rsoid')";
            queryMysql($sql);
 
-           die("<h4>Added to RSO</h4><br><br>");
+           die("<h4>Added to RSO</h4><a href='populate_rso.php'>Return</a><br><br>");
        }
       echo $error;
   }
