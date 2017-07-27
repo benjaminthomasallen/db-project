@@ -66,6 +66,13 @@ else if ($result->num_rows > 0)
             echo "<tr><td class='indent'>" . "Rating: " . $row['rating'] . "/5</td></tr>";
         }
         echo "<tr><td class='indent'>Comment: " . $row['comment'] . "</td></tr>";
+        if($row['uid'] == $uid)
+        {
+            $comment = $row['comment'];
+            echo "<tr><td><form method='post' action='delete_comment.php'></td></tr>";
+            echo "<tr><td><button> Delete comment</button><input type = 'hidden' name='comment' value ='$comment'/> </td></tr>";
+            echo "</form>";
+        }
     }
     echo "</table></br></body>";
 }
