@@ -1,7 +1,13 @@
 <?php
-  require_once 'header.php';
+require_once 'header.php';
 
-
+$privacy = (int) (isset($_GET['privacy']) ? $_GET['privacy'] : 1);
+echo "<form method='get'>
+        <select name='privacy' id='privacy'>
+        <option value='1' selected='selected'> Public </option>
+        <option value='2'> RSO </option>
+        <option value='3'> Private </option></select>
+        <input type='submit' name='submit' value='Go'/></form>";
 $sql = "SELECT
             a.name,
             a.start_date,
@@ -9,9 +15,11 @@ $sql = "SELECT
             a.location,
             a.room,
             a.description,
-            a.eid
+            a.eid,
+            a.visibility
         FROM
-            events a";
+            events a
+        WHERE a.visibility = '$privacy'";
 
 $result = queryMysql($sql);
 
@@ -34,7 +42,7 @@ if ($result->num_rows > 0) {
     }
     echo "</table>";
 } else {
-    echo "0 results";
+    echo "0 results, you may not be allowed to see any Private or RSO events";
 }
 ?>
 </body>
