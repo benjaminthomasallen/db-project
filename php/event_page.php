@@ -83,6 +83,7 @@ echo"<form method='post' action='post_comment.php'>
   </br>
   <textarea name='comment' id='comment'></textarea>
   </br>
+  Rating: </br>
   <input type='radio' name='rating' value='1'> 1
   <input type='radio' name='rating' value='2'> 2
   <input type='radio' name='rating' value='3'> 3
