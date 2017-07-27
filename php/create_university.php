@@ -2,13 +2,18 @@
 
 require_once 'header.php';
 
-$error = $school_code = $name = $abv = $desc = $num_students = $website = '';
-if(!isset($_SESSION['user']))
+$error = $school_code = $name = $abv = $desc = $num_students = $website = $uid = '';
+if(!isset($_SESSION['uid']))
+{
+  echo "You must be logged in to create a university";
+  destroySession();
+}
 
 if(isset($_SESSION['school_code'])) destroySession();
 
 if(isset($_POST['school_code']))
 {
+
     $school_code = sanitizeString($_POST['school_code']);
     $name = sanitizeString($_POST['name']);
     $abv = sanitizeString($_POST['abv']);
@@ -24,8 +29,13 @@ if(isset($_POST['school_code']))
 
     else
     {
+      // Setting the university in SQL
       $sql ="INSERT INTO university (school_code, name, abbrev, description , student_pop, website)"
              ."VALUES('$school_code', '$name', '$abv', '$desc', '$num_students', '$website')";
+      queryMysql($sql);
+      // Setting the super admin in SQL
+      $sql = "INSERT INTO super_admin(school_code, uid)"
+            ."VALUES('$school_code', '$uid')";
       queryMysql($sql);
       die("<h4>University Created</h4> See the <a href='../index.php'>Calendar</a> <br><br>");
     }

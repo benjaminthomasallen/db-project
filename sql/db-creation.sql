@@ -96,9 +96,11 @@ CREATE TABLE admin(
 
 
 CREATE TABLE super_admin(
-        uid     INT                 NOT NULL,
+        school_code   INT      NOT NULL,
+        uid           INT      NOT NULL,
         FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
-        PRIMARY KEY (uid)
+        FOREIGN KEY (school_code) REFERENCES university (school_code) ON DELETE CASCADE,
+        PRIMARY KEY (school_code)
 );
 
 CREATE TABLE location(
