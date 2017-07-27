@@ -34,8 +34,11 @@ if(isset($_POST['school_code']))
              ."VALUES('$school_code', '$name', '$abv', '$desc', '$num_students', '$website')";
       queryMysql($sql);
       // Setting the super admin in SQL
+      $uid = $_SESSION['uid'];
+
       $sql = "INSERT INTO super_admin(school_code, uid)"
             ."VALUES('$school_code', '$uid')";
+      echo $sql;
       queryMysql($sql);
       die("<h4>University Created</h4> See the <a href='../index.php'>Calendar</a> <br><br>");
     }

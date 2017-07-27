@@ -188,7 +188,7 @@ INSERT INTO student VALUES('7');
 INSERT INTO student VALUES('8');
 INSERT INTO student VALUES('9');
 
-INSERT INTO super_admin VALUES('10');
+INSERT INTO super_admin VALUES('1' , '10');
 
 
 INSERT INTO location (name, address, latitude, longitude)
