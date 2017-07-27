@@ -7,13 +7,13 @@ if(!isset($_SESSION['uid']))
   echo "You must be logged in to create an RSO";
   destroySession();
 }
+$uid = $_SESSION['uid'];
 
 if(isset($_SESSION['rso'])) destroySession();
 
 if(isset($_POST['rso']))
 {
     $rso = sanitizeString($_POST['rso']);
-    $uid = $_SESSION['uid'];
     $school_code = sanitizeString($_POST['school_code']);
     $name = sanitizeString($_POST['name']);
 

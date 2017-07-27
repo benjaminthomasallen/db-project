@@ -5,6 +5,12 @@
   $error = $eid = $rid = $name = $visibility = $email = $type = $phone = $start_time = $end_time = $location = $room = '';
   if(isset($_SESSION['eid'])) destroySession();
 
+  if(!isset($_SESSION['uid']))
+  {
+    echo "You must be logged in to create an RSO";
+    destroySession();
+  }
+  $uid = $_SESSION['uid'];
   if(isset($_POST['eid']))
   {
       $eid = sanitizeString($_POST['eid']);
@@ -48,21 +54,32 @@
   }
 
 
+// START OF EVENT FORM //
+
 echo "<div class='cEvent'><h3>Please enter Event Details</h3>".
      "<form method='post' action='create_event.php'> $error
         <!-- Event Creation-->
         <div class='fieldname'>
 
           <label><strong>EID</strong></label>
-          <input type='text' maxlength='16' placeholder='Event ID' name='eid' value = '$eid' required>
+          <input type='text' maxlength='16' placeholder='Event ID' name='eid' value = '$eid' required>";
+          //  Dynamic Selector for RSO
+echo      "<select name = 'rid' required>" .
+          $sql = "SELECT *
+                  FROM rso a
+                  JOIN admin b
+                  WHERE b.uid ='$uid' AND a.rso_id = b.rso_id";
+          $result = queryMysql($sql);
+          while($row = $result->fetch_assoc())
+           {
+             echo "<option value=".$row['rso_id'].">".$row['name']."</option>";
+           }
 
-          <select name = 'rid' required>
-            <option value='1'>UCF Public Events</option>
-            <option value='2'>Chess Club</option>
-            <option value='3'>Aviation Club</option>
-          </select>
+          echo "<option value='999'>No RSO</option>".
+                "</select>";
 
-          <label><strong>Event Name</strong></label>
+
+  echo "  <label><strong>Event Name</strong></label>
           <input type='text' placeholder='Enter Event Name' name='name' value = '$name' required>
 
           <label><strong>Privacy</strong></label>

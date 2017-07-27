@@ -50,6 +50,7 @@ CREATE TABLE events(
         location      VARCHAR(255)  NOT NULL,
         room          VARCHAR(255)  NOT NULL,
         description   TEXT  NOT NULL,
+        approved      BOOLEAN,
         FOREIGN KEY (rso_id) REFERENCES rso (rso_id) ON DELETE CASCADE,
         PRIMARY KEY (eid)
 );
