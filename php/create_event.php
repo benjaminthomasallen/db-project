@@ -1,8 +1,6 @@
 <?php
   require_once 'header.php';
 
-
-
   // Variable Init
   $error = $eid = $rid = $name = $visibility = $email = $type = $phone = $start_time = $end_time = $location = $room = '';
   if(isset($_SESSION['eid'])) destroySession();
@@ -48,6 +46,8 @@
       }
 
   }
+
+
 echo "<div class='cEvent'><h3>Please enter Event Details</h3>".
      "<form method='post' action='create_event.php'> $error
         <!-- Event Creation-->

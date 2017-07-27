@@ -1,5 +1,7 @@
 <?php
-include 'functions.php';
+include 'header.php';
+
+
 
 $url = "http://events.ucf.edu/upcoming/feed.xml";
 $ch = curl_init();
@@ -10,6 +12,8 @@ $data = curl_exec($ch);
 curl_close($ch);
 
 $xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
+
+echo "<h2>Pull from : " . $url . "</h2>";
 
 foreach($xml -> event as $row){
         $eid = $row -> id;

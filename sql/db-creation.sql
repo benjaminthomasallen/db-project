@@ -16,7 +16,7 @@ CREATE TABLE users(
 );
 
 CREATE TABLE university(
-        school_code  INT            NOT NULL AUTO_INCREMENT,
+        school_code  INT            NOT NULL,
         name         VARCHAR(255)   NOT NULL,
         abbrev       VARCHAR(15)    NOT NULL,
         description  TEXT           NOT NULL,
@@ -96,9 +96,11 @@ CREATE TABLE admin(
 
 
 CREATE TABLE super_admin(
-        uid     INT                 NOT NULL,
+        school_code   INT      NOT NULL,
+        uid           INT      NOT NULL,
         FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
-        PRIMARY KEY (uid)
+        FOREIGN KEY (school_code) REFERENCES university (school_code) ON DELETE CASCADE,
+        PRIMARY KEY (school_code)
 );
 
 CREATE TABLE location(
@@ -140,12 +142,12 @@ CREATE TABLE rso_member(
 
 
 
-INSERT INTO university (name, abbrev, description, student_pop, website)
-VALUES('University of Central Florida', 'UCF', 'The University of Central Florida is a thriving preeminent research university located in metropolitan Orlando. With more than 64,000 students, UCF is one of the largest universities in the U.S. In addition to its impressive size and strength, UCF is ranked as a best-value university by The Princeton Review and Kiplinger’s, as well as one of the nation’s most affordable colleges by Forbes. The university benefits from a diverse faculty and staff who create a welcoming environment and opportunities for all students to grow, learn and succeed.', '64318', 'https://www.ucf.edu');
-INSERT INTO university (name, abbrev, description, student_pop, website)
-VALUES('University of Florida', 'UF', "At the University of Florida, we are a people of purpose. We're committed to challenging convention and ourselves. We see things not as they are, but as they could be. And we strive for a greater impact: one measured in people helped and lives improved.", '52286', 'http://www.ufl.edu/');
-INSERT INTO university (name, abbrev, description, student_pop, website)
-VALUES('Florida State University', 'FSU', "One of the nation's elite research universities, Florida State University preserves, expands, and disseminates knowledge in the sciences, technology, arts, humanities, and professions, while embracing a philosophy of learning strongly rooted in the traditions of the liberal arts and critical thinking.", '41867', 'http://www.fsu.edu/');
+INSERT INTO university (school_code, name, abbrev, description, student_pop, website)
+VALUES('1', 'University of Central Florida', 'UCF', 'The University of Central Florida is a thriving preeminent research university located in metropolitan Orlando. With more than 64,000 students, UCF is one of the largest universities in the U.S. In addition to its impressive size and strength, UCF is ranked as a best-value university by The Princeton Review and Kiplinger’s, as well as one of the nation’s most affordable colleges by Forbes. The university benefits from a diverse faculty and staff who create a welcoming environment and opportunities for all students to grow, learn and succeed.', '64318', 'https://www.ucf.edu');
+INSERT INTO university (school_code, name, abbrev, description, student_pop, website)
+VALUES('2', 'University of Florida', 'UF', "At the University of Florida, we are a people of purpose. We're committed to challenging convention and ourselves. We see things not as they are, but as they could be. And we strive for a greater impact: one measured in people helped and lives improved.", '52286', 'http://www.ufl.edu/');
+INSERT INTO university (school_code, name, abbrev, description, student_pop, website)
+VALUES('3', 'Florida State University', 'FSU', "One of the nation's elite research universities, Florida State University preserves, expands, and disseminates knowledge in the sciences, technology, arts, humanities, and professions, while embracing a philosophy of learning strongly rooted in the traditions of the liberal arts and critical thinking.", '41867', 'http://www.fsu.edu/');
 
 
 
@@ -186,7 +188,7 @@ INSERT INTO student VALUES('7');
 INSERT INTO student VALUES('8');
 INSERT INTO student VALUES('9');
 
-INSERT INTO super_admin VALUES('10');
+INSERT INTO super_admin VALUES('1' , '10');
 
 
 INSERT INTO location (name, address, latitude, longitude)
