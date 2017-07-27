@@ -14,13 +14,16 @@ $sql = "SELECT
                 JOIN users b
                     ON a.uid = b.uid";
 
-$result = queryMysql($sql);
 
-if ($result->num_rows > 0) {
-    echo "<table>
-            <tr>
-            <th>RSO's</th>
-            </tr>";
+echo "<form action= 'create_rso.php'><button>Create New RSO</button></form>";
+
+echo "<table>
+       <tr>
+        <th>RSO's</th>
+          </tr>";
+
+$result = queryMysql($sql);
+if ($result->num_rows) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         echo "<tr><td><strong>" . $row["name"] ;

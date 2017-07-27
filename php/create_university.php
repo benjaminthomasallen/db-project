@@ -68,7 +68,7 @@ echo "<div class='cUniv'><h3>Please enter University Details</h3>".
           <label><strong>Website</strong></label>
           <input type='txt' placeholder='Enter Website' name='website' value = '$website' required>
 
-          <button type='submit'>Create Event</button>
+          <button type='submit'>Create University</button>
         </div>
       </form>
       </body>
