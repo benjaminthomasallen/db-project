@@ -55,11 +55,8 @@
         $sql="INSERT INTO location(name, bldg, room, latitude, longitude)"
             ."VALUES('$name', '$bldg', '$room', '$lat', '$lon')";
         queryMysql($sql);
-        //echo $sql;
 
         $sql = "SELECT lid FROM location WHERE name = '$name' AND bldg = '$bldg' AND room = '$room' AND latitude='$lat' AND longitude='$lon'";
-        //echo $sql;
-
         $result = queryMysql($sql);
 
         if ($result->num_rows > 0) {
@@ -71,9 +68,7 @@
         $sql ="INSERT INTO events (eid,rso_id,name,email,type,phone,start_date,end_date,lid,approved,school_code,privacy)"
                ."VALUES('$eid', '$rid', '$name','$email', '$type', '$phone', '$start_time','$end_time', '$lid', '$approved', '$school_code', '$privacy' )";
         queryMysql($sql);
-        echo $sql;
         die("<h4>Event Created</h4> See the <a href='../index.php'>Calendar</a> <br><br>");
-
   }
 
 

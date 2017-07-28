@@ -33,14 +33,14 @@ echo "<link rel='stylesheet' type='text/css' href='css/home.css'>"       .
      "</head><body>".
      " <!-- Top Navigation Bar -->
        <nav class='navbar'>
-         <a href='index.php' class='navbtn-home'> RSO Event Calendar </a>
+         <a href='index.php' class='navbtn-home'> Home </a>
          <a href='php/populate_events.php' class='navbtn'> View Events </a>
          <a href='php/populate_rso.php' class='navbtn'> RSO's </a>
          <a href='php/create_event.php' class='navbtn'> Create Event </a>
          <a href='php/login.php' class='navbtn'> Login/Register </a>
          <a href='php/create_university.php' class= 'navbtn'> Create University </a>";
          if($super == 1){
-             echo "<a href = 'adminPanel.php' class='navbtn'> Admin Panel</a>";
+             echo "<a href = 'php/adminPanel.php' class='navbtn'> Admin Panel</a>";
          }
        echo "</nav>  ";
 

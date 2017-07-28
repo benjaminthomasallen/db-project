@@ -33,7 +33,7 @@ echo "<link rel='stylesheet' type='text/css' href='../css/home.css'>"       .
      "</head><body>".
      " <!-- Top Navigation Bar -->
        <nav class='navbar'>
-         <a href='../index.php' class='navbtn-home'> RSO Event Calendar </a>
+         <a href='../index.php' class='navbtn-home'> Home </a>
          <a href='populate_events.php' class='navbtn'> View Events </a>
          <a href='populate_rso.php' class='navbtn'> RSO's </a>
          <a href='create_event.php' class='navbtn'> Create Event </a>
