@@ -21,7 +21,9 @@ $sql = "SELECT
             a.description,
             b.address,
             b.bldg,
-            b.room
+            b.room,
+            b.latitude,
+            b.longitude
         FROM events a
         JOIN location b
         ON b.lid = a.lid
@@ -37,7 +39,8 @@ if ($result->num_rows >0)
         $stime = strtotime($row['start_date']);
         $etime = strtotime($row['end_date']);
         $event_tweet = "Im going to the " . $row['name'] . " event on " . date('l F d, Y g:i a', $stime) . " at " . $row['bldg'] . " " . $row['room'];
-
+        $lat = $row['latitude'];
+        $lon = $row['longitude'];
 
         echo "<tr><td>" . $row["name"] . "</td></tr>";
         echo "<tr><td class=indent>" . date('l F d, Y g:i a', $stime) . " through " . date('g:i a', $etime) . "</td></tr>";
@@ -47,8 +50,39 @@ if ($result->num_rows >0)
     }
     echo "</table></br>";
 }
+?>
+<style>
+#map{
+    height: 400px;
+    width: 50%;
+    text-align: left;
+}
+</style>
+<div id='map'></div>
+   <script>
+       function initMap(){
+           var options = {
+               zoom:15,
+               center:{lat:28.6024,lng:-81.2001}
+           }
 
+           var map = new google.maps.Map(document.getElementById('map'), options);
 
+           addMarker({lat:<?php echo $lat; ?>,lng:<?php echo $lon; ?>});
+
+           function addMarker(coords){
+               var marker = new google.maps.Marker({
+                   position:coords,
+                   map:map
+               });
+               }
+           }
+   </script>
+   <script async defer
+       src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDmF1Xw0tM0PVY1hfQUngZVqImuDSz3mEI&callback=initMap'>
+   </script>
+
+<?php
 echo "<h4>Tweet about this event!</h4>";
 echo "<form method='post' action='post_tweet.php'>";
 echo "<button> Tweet</button><input type='hidden' name='event_tweet' value='$event_tweet' />";
