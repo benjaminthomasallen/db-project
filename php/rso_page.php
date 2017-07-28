@@ -69,8 +69,6 @@ $sql = "SELECT
             a.name,
             a.start_date,
             a.end_date,
-            a.location,
-            a.room,
             a.description
         FROM
             events a
@@ -89,7 +87,7 @@ if ($result->num_rows > 0)
 
                 echo "<tr><td>" . $row["name"] . "</td></tr>";
                 echo "<tr><td>" . date('l F d, Y g:i a', $stime) . " through " . date('g:i a', $etime) . "</td></tr>";
-                echo "<tr><td>" . $row["location"] . " " . $row["room"] . "</td></tr>";
+                //echo "<tr><td>" . $row["location"] . " " . $row["room"] . "</td></tr>";
                 echo "<tr><td>" . $row["description"] . "</td></tr>";
                 echo '<tr class="bordered"><td></td></tr>';
             }
