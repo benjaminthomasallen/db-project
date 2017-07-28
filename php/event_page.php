@@ -1,20 +1,27 @@
 <?php
 require_once 'header.php';
+require_once 'twitteroauth/autoload.php';
+use Abraham\TwitterOAuth\TwitterOAuth;
 
 $pull_eid = $_GET['eid'];
 
 $sql = "SELECT
-            name,
-            privacy,
-            email,
-            type,
-            phone,
-            start_date,
-            end_date,
-            lid,
-            description
-        FROM events
-            WHERE eid = $pull_eid";
+            a.name,
+            a.privacy,
+            a.email,
+            a.type,
+            a.phone,
+            a.start_date,
+            a.end_date,
+            a.lid,
+            a.description,
+            b.address,
+            b.bldg,
+            b.room
+        FROM events a
+        JOIN location b
+        ON b.lid = a.lid
+            WHERE a.eid = $pull_eid";
 
 $result = queryMysql($sql);
 
@@ -23,16 +30,24 @@ if ($result->num_rows >0)
     echo "<table>";
     while($row = $result->fetch_assoc())
     {
+        $event_tweet = $row['name'];
         $stime = strtotime($row['start_date']);
         $etime = strtotime($row['end_date']);
 
         echo "<tr><td>" . $row["name"] . "</td></tr>";
         echo "<tr><td class=indent>" . date('l F d, Y g:i a', $stime) . " through " . date('g:i a', $etime) . "</td></tr>";
-        echo "<tr><td class=indent>" . $row["lid"] . " " . "</td></tr>";
+        echo "<tr><td class=indent>" . $row['address'] . "</td></tr>";
+        echo "<tr><td class=indent>" . $row['bldg'] . " " . $row['room'] . "</td></tr>";
         echo "<tr><td class=indent>" . $row["description"] . "</td></tr>";
     }
     echo "</table></br>";
 }
+
+
+echo "<h4>Tweet about this event!</h4>";
+echo "<form method='post' action='post_tweet.php'>";
+echo "<button> Tweet</button><input type='hidden' name='event_tweet' value='$event_tweet' />";
+echo "</form></br>";
 
 $sql = "SELECT
             a.uid,
