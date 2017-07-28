@@ -2,7 +2,7 @@
   require_once 'header.php';
 
   // Variable Init
-  $error = $eid = $rid = $name = $visibility = $email = $type = $phone = $start_time = $end_time = $location = $room = '';
+  $error = $eid = $rid = $name = $email = $type = $phone = $start_time = $end_time = $lid = $room = '';
   if(isset($_SESSION['eid'])) destroySession();
 
   if(!isset($_SESSION['uid']))
@@ -16,13 +16,12 @@
       $eid = sanitizeString($_POST['eid']);
       $rid = sanitizeString($_POST['rid']);
       $name = sanitizeString($_POST['name']);
-      $visibility = sanitizeString($_POST['visibility']);
       $email = sanitizeString($_POST['email']);
       $type = sanitizeString($_POST['type']);
       $phone = sanitizeString($_POST['phone']);
       $start_time = sanitizeString($_POST['start_time']);
       $end_time = sanitizeString($_POST['end_time']);
-      $location = sanitizeString($_POST['location']);
+      $lid = sanitizeString($_POST['lid']);
       $room = sanitizeString($_POST['room']);
 
       $sql = "SELECT * FROM events WHERE eid='$eid'";
@@ -37,7 +36,6 @@
               FROM events
                 WHERE DATE(start_date) = DATE('$start_time') AND
                 room = '$room'";
-
       $result = queryMysql($sql);
 
       if($result->num_rows)
@@ -45,9 +43,21 @@
 
       else
       {
-        $sql ="INSERT INTO events (eid,rso_id,name,visibility,email,type,phone,start_date,end_date,location,room)"
-               ."VALUES('$eid', '$rid', '$name','$visibility', '$email', '$type', '$phone', '$start_time','$end_time', '$location', '$room')";
+        $sql ="SELECT school_code
+               FROM user_attends u
+               WHERE u.uid = '$uid'";
+        $result = queryMysql($sql);
+        $row = $result->fetch_assoc();
+        $school_code = $row['school_code'];
+
+        $sql ="INSERT INTO event_location (eid, lid, school_code)"
+              ."VALUES('$eid', '$lid', '$school_code')";
         queryMysql($sql);
+
+        $sql ="INSERT INTO events (eid,rso_id,name,email,type,phone,start_date,end_date,location)"
+               ."VALUES('$eid', '$rid', '$name','$email', '$type', '$phone', '$start_time','$end_time', '$lid')";
+        queryMysql($sql);
+
         die("<h4>Event Created</h4> See the <a href='../index.php'>Calendar</a> <br><br>");
       }
 
@@ -78,16 +88,8 @@ echo      "<select name = 'rid' required>" .
           echo "<option value='999'>No RSO</option>".
                 "</select>";
 
-
   echo "  <label><strong>Event Name</strong></label>
           <input type='text' placeholder='Enter Event Name' name='name' value = '$name' required>
-
-          <label><strong>Privacy</strong></label>
-          <select name = 'visibility' required>
-            <option value='1'>Public</option>
-            <option value='2'>RSO</option>
-            <option value='3'>Private</option>
-          </select>
 
           <label><strong>Email</strong></label>
           <input type='email' placeholder='Enter Email' name='email' value = '$email' required>
@@ -105,7 +107,7 @@ echo      "<select name = 'rid' required>" .
           <input type='datetime-local' name='end_time' value = '$end_time' required>
 
           <label><strong>Location</strong></label>
-          <input type='text' name='location' value = '$location' required>
+          <input type='text' name='lid' value = '$lid' required>
 
           <label><strong>Room</strong></label>
           <input type='text' name='room' value = '$room' required>

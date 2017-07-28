@@ -4,16 +4,15 @@ CREATE DATABASE event_db;
 
 USE event_db;
 
-CREATE TABLE users(
-        uid          INT            NOT NULL AUTO_INCREMENT,
-        first_name   VARCHAR(20)    NOT NULL,
-        last_name    VARCHAR(20)    NOT NULL,
-        school_code  VARCHAR(11)    NOT NULL,
-        username     VARCHAR(20)    NOT NULL,
-        password     VARCHAR(11)    NOT NULL,
-        email        VARCHAR(50)    NOT NULL,
-        FOREIGN KEY (school_code) REFERENCES university (school_code) ON DELETE CASCADE,
-        PRIMARY KEY (uid)
+CREATE TABLE location(
+        lid           INT           NOT NULL AUTO_INCREMENT,
+        name          VARCHAR(255)  NOT NULL,
+        address       VARCHAR(255)  NOT NULL,
+        bldg          VARCHAR(255)  NOT NULL,
+        room          VARCHAR(255)  NOT NULL,
+        latitude      VARCHAR(255)  NOT NULL,
+        longitude     VARCHAR(255)  NOT NULL,
+        PRIMARY KEY (lid)
 );
 
 CREATE TABLE university(
@@ -27,6 +26,18 @@ CREATE TABLE university(
         FOREIGN KEY (lid) REFERENCES location (lid),
         PRIMARY KEY (school_code)
 
+);
+
+CREATE TABLE users(
+        uid          INT            NOT NULL AUTO_INCREMENT,
+        first_name   VARCHAR(20)    NOT NULL,
+        last_name    VARCHAR(20)    NOT NULL,
+        school_code  INT            NOT NULL,
+        username     VARCHAR(20)    NOT NULL,
+        password     VARCHAR(11)    NOT NULL,
+        email        VARCHAR(50)    NOT NULL,
+        FOREIGN KEY (school_code) REFERENCES university (school_code) ON DELETE CASCADE,
+        PRIMARY KEY (uid)
 );
 
 CREATE TABLE rso(
@@ -50,7 +61,7 @@ CREATE TABLE events(
         phone         VARCHAR(20)   NOT NULL,
         start_date    DATETIME      NOT NULL,
         end_date      DATETIME      NOT NULL,
-        lid           VARCHAR(255)  NOT NULL,
+        lid           INT           NOT NULL,
         description   TEXT          NOT NULL,
         approved      BOOLEAN               ,
         school_code   INT           NOT NULL,
@@ -85,17 +96,6 @@ CREATE TABLE super_admin(
         PRIMARY KEY (school_code)
 );
 
-CREATE TABLE location(
-        lid           INT           NOT NULL AUTO_INCREMENT,
-        name          VARCHAR(255)  NOT NULL,
-        address       VARCHAR(255)  NOT NULL,
-        bldg          VARCHAR(255)  NOT NULL,
-        room          VARCHAR(255)  NOT NULL,
-        latitude      VARCHAR(255)  NOT NULL,
-        longitude     VARCHAR(255)  NOT NULL,
-        PRIMARY KEY (lid)
-);
-
 CREATE TABLE rso_member(
         uid             INT            NOT NULL,
         rso_id          INT            NOT NULL,
@@ -103,6 +103,20 @@ CREATE TABLE rso_member(
         FOREIGN KEY (uid) REFERENCES users (uid) ON DELETE CASCADE,
         FOREIGN KEY (rso_id) REFERENCES rso (rso_id) ON DELETE CASCADE
 );
+
+
+
+-- Location CREATION --
+
+INSERT INTO location (name, address, latitude, longitude)
+VALUES('UCF Main Campus', '4000 Central Florida Blvd, Orlando, FL 32816', '28.6024', '-81.2001');
+INSERT INTO location (name, address, latitude, longitude)
+VALUES('UF Main Campus', 'Gainesville, FL 32611', '29.643632', '-82.35493');
+INSERT INTO location (name, address, latitude, longitude)
+VALUES('FSU Main Campus', '600 W College Ave, Tallahassee, FL 32306', '30.4419', '-84.2985');
+INSERT INTO location (name, address, bldg, room)VALUES('Chess Event', 'UCF', 'ENG1', '103');
+INSERT INTO location (name, address, bldg, room)VALUES('Aviation Flight', 'Airfield', 'Hangar', '1');
+
 
 
 -- UNIVERSITY CREATION --
@@ -142,12 +156,6 @@ VALUES('Marcelle', 'Travis', '1', 'macTravisUcf', 'pw', 'macTravisUcf@knights.ed
 INSERT INTO super_admin VALUES('1' , '10');
 
 
-INSERT INTO location (name, address, latitude, longitude)
-VALUES('UCF Main Campus', '4000 Central Florida Blvd, Orlando, FL 32816', '28.6024', '-81.2001');
-INSERT INTO location (name, address, latitude, longitude)
-VALUES('UF Main Campus', 'Gainesville, FL 32611', '29.643632', '-82.35493');
-INSERT INTO location (name, address, latitude, longitude)
-VALUES('FSU Main Campus', '600 W College Ave, Tallahassee, FL 32306', '30.4419', '-84.2985');
 
 
 -- For the events pulled from the ucf upcoming events xml
@@ -185,10 +193,19 @@ INSERT INTO rso_member VALUES('8', '1');
 INSERT INTO rso_member VALUES('9', '1');
 INSERT INTO rso_member VALUES('10', '1');
 
-INSERT INTO events VALUES('1', '2', 'First Chess Club Meeting', '1', 'samLinnaUcf@knights.ucf.edu', 'Social', '202-555-0120', '2017-07-30 13:30:00', '2017-07-30 14:00:00', '4', "The first chess club meeting of the semester, don't miss it!", '1', '1');
-INSERT INTO location VALUES('Chess Event', 'UCF', 'ENG1', '103');
-INSERT INTO events VALUES('2', '3', 'Aviation Club Test Flight', '1', 'oliveMacUcf@knights.ucf.edu', 'Social', '630-446-8851', '2017-08-02 10:30:00', '2017-08-02 12:00:00', '5', "The aviation club will be showing off the new drone they raised money for last semester", '1', '1');
-INSERT INTO location VALUES('Aviation Flight', 'Airfield', 'Hangar', '1');
+INSERT INTO events(eid, rso_id, name, email, type, phone,
+                    start_date, end_date, lid, description,
+                    approved, school_code)
+            VALUES('1',  '2', 'First Chess Club Meeting', 'samLinnaUcf@knights.ucf.edu', 'Social', '202-555-0120',
+                   '2017-07-30 13:30:00', '2017-07-30 14:00:00', '4', "The first chess club meeting of the semester, don't miss it!",
+                   '1', '1');
+INSERT INTO events(eid, rso_id, name, email, type, phone,
+                   start_date, end_date, lid, description,
+                  approved, school_code)
+            VALUES('2', '3', 'Aviation Club Test Flight', 'oliveMacUcf@knights.ucf.edu', 'Social', '630-446-8851',
+                   '2017-08-02 10:30:00', '2017-08-02 12:00:00', '5', "The aviation club will be showing off the new drone they raised money for last semester",
+                   '1', '1');
+
 
 
 
