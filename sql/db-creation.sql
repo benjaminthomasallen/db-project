@@ -25,7 +25,6 @@ CREATE TABLE university(
         lid          INT            NOT NULL,
         FOREIGN KEY (lid) REFERENCES location (lid),
         PRIMARY KEY (school_code)
-
 );
 
 CREATE TABLE users(
@@ -117,7 +116,8 @@ INSERT INTO location (name, address, latitude, longitude)
 VALUES('FSU Main Campus', '600 W College Ave, Tallahassee, FL 32306', '30.4419', '-84.2985');
 INSERT INTO location (name, address, bldg, room)VALUES('Chess Event', 'UCF', 'ENG1', '103');
 INSERT INTO location (name, address, bldg, room)VALUES('Aviation Flight', 'Airfield', 'Hangar', '1');
-
+INSERT INTO location (name, address, latitude, longitude)
+VALUES('Unaffiliated Campus', '123 Unaffiliated Way', '0', '0');
 
 
 -- UNIVERSITY CREATION --
@@ -127,7 +127,8 @@ INSERT INTO university (school_code, name, abbrev, description, student_pop, web
 VALUES('2', 'University of Florida', 'UF', "At the University of Florida, we are a people of purpose. We're committed to challenging convention and ourselves. We see things not as they are, but as they could be. And we strive for a greater impact: one measured in people helped and lives improved.", '52286', 'http://www.ufl.edu/', '2');
 INSERT INTO university (school_code, name, abbrev, description, student_pop, website, lid)
 VALUES('3', 'Florida State University', 'FSU', "One of the nation's elite research universities, Florida State University preserves, expands, and disseminates knowledge in the sciences, technology, arts, humanities, and professions, while embracing a philosophy of learning strongly rooted in the traditions of the liberal arts and critical thinking.", '41867', 'http://www.fsu.edu/', '3');
-
+INSERT INTO university (school_code, name, abbrev, description, student_pop, website, lid)
+VALUES('999', 'Unaffiliated University', 'UU', 'Unaffiliated', '1', 'Unaffiliated.com', '4');
 
 -- UCF students
 INSERT INTO users (first_name, last_name, school_code, username, password, email)
