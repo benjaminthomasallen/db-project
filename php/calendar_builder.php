@@ -19,7 +19,7 @@ $query = "SELECT name, start_date
             FROM events
                 WHERE MONTH(start_date) = '$month' AND
                 YEAR(start_date) = '$year' AND
-                visibility = '$privacy'";
+                privacy = '$privacy'";
 
 $result = queryMysql($query) or die(mysqli_error());
 

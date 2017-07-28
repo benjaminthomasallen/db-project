@@ -8,7 +8,7 @@
     $user = sanitizeString($_POST['user']);
     $pass = sanitizeString($_POST['pass']);
 
-    $result = queryMysql("SELECT username,password, uid FROM users
+    $result = queryMysql("SELECT username,password,uid,school_code FROM users
                           WHERE username='$user' AND password='$pass'");
 
       if($result->num_rows == 0)
@@ -17,10 +17,12 @@
       {
         while($row = $result->fetch_assoc()) {
             $uid = $row['uid'];
+            $school = $row['school_code'];
         }
         $_SESSION['user']= $user;
         $_SESSION['pass']= $pass;
         $_SESSION['uid'] = $uid;
+        $_SESSION['school_code'] = $school;
         die("You are now logged in. Checkout our <a href='../index.php'>calendar</a> for upcoming events!<br><br>");
       }
 

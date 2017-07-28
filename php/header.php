@@ -19,6 +19,7 @@ if(isset($_SESSION['user']))
 {
   $user = $_SESSION['user'];
   $uid = $_SESSION['uid'];
+  $school = $_SESSION['school_code'];
   $loggedin = TRUE;
   $username = ' $user';
 }
