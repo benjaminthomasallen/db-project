@@ -28,7 +28,7 @@ if ($result->num_rows >0)
 
         echo "<tr><td>" . $row["name"] . "</td></tr>";
         echo "<tr><td class=indent>" . date('l F d, Y g:i a', $stime) . " through " . date('g:i a', $etime) . "</td></tr>";
-        echo "<tr><td class=indent>" . $row["location"] . " " . $row["room"] . "</td></tr>";
+        echo "<tr><td class=indent>" . $row["lid"] . " " . "</td></tr>";
         echo "<tr><td class=indent>" . $row["description"] . "</td></tr>";
     }
     echo "</table></br>";
