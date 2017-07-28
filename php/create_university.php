@@ -2,7 +2,7 @@
 
 require_once 'header.php';
 
-$error = $school_code = $name = $abv = $desc = $num_students = $website = $uid = '';
+$error = $school_code = $name = $abv = $desc = $num_students = $website = $uid = $address = '';
 if(!isset($_SESSION['user']))
 {
   echo "You must be logged in to create a university";
@@ -24,6 +24,7 @@ if(isset($_POST['school_code']))
     $desc = sanitizeString($_POST['desc']);
     $num_students = sanitizeString($_POST['num_students']);
     $website = sanitizeString($_POST['website']);
+    $address = sanitizeString($_POST['address']);
 
     $sql = "SELECT * FROM university WHERE school_code='$school_code'";
     $result = queryMysql($sql);
@@ -33,9 +34,22 @@ if(isset($_POST['school_code']))
 
     else
     {
+      $sql = "INSERT INTO location (name, address)"
+             . "VALUES('$name', '$address')";
+      queryMysql($sql);
+
+      $sql = "SELECT * FROM location WHERE address = '$address' AND name='$name'";
+      $result = queryMysql($sql);
+
+      if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc()) {
+              $lid = $row['lid'];
+          }
+      }
+
       // Setting the university in SQL
-      $sql ="INSERT INTO university (school_code, name, abbrev, description , student_pop, website)"
-             ."VALUES('$school_code', '$name', '$abv', '$desc', '$num_students', '$website')";
+      $sql ="INSERT INTO university (school_code, name, abbrev, description , student_pop, website, lid)"
+             ."VALUES('$school_code', '$name', '$abv', '$desc', '$num_students', '$website', '$lid')";
       queryMysql($sql);
       // Setting the super admin in SQL
       $uid = $_SESSION['uid'];
@@ -43,8 +57,6 @@ if(isset($_POST['school_code']))
       $sql = "INSERT INTO super_admin(school_code, uid)"
             ."VALUES('$school_code', '$uid')";
 
-      echo $uid;
-      echo $sql;
       queryMysql($sql);
       die("<h4>University Created</h4> See the <a href='../index.php'>Calendar</a> <br><br>");
     }
@@ -73,6 +85,9 @@ echo "<div class='cUniv'><h3>Please enter University Details</h3>".
 
           <label><strong>Website</strong></label>
           <input type='txt' placeholder='Enter Website' name='website' value = '$website' required>
+
+          <label><strong>Address</strong></label>
+          <input type='txt' placeholder='Enter Address' name='address' value='$address' required>
 
           <button type='submit'>Create University</button>
         </div>
