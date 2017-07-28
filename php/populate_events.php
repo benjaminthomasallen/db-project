@@ -22,9 +22,14 @@ $sql = "SELECT
             a.description,
             a.eid,
             a.privacy,
-            a.school_code
+            a.school_code,
+            b.address,
+            b.bldg,
+            b.room
         FROM
             events a
+        JOIN location b
+        ON b.lid = a.lid
         WHERE
             a.privacy = '$privacy' AND
             a.school_code = '$schoolSelect'";
@@ -44,6 +49,7 @@ if ($result->num_rows > 0) {
         echo "<tr><td><strong>" . $row["name"] . "</strong></td></tr>";
         echo "<tr><td><a href='event_page.php?eid=" . $row['eid'] ."'> Event page </a></td></tr>";
         echo "<tr><td class=indent>" . date('l F d, Y g:i a', $stime) . " through " . date('g:i a', $etime) . "</td></tr>";
+        echo "<tr><td class=indent>" . $row["address"] . " " . $row["bldg"] . " " . $row["room"] . "</td></tr>";
         echo "<tr><td class=indent>" . $row["description"] . "</td></tr>";
         echo '<tr class="bordered"><td></td></tr>';
     }
