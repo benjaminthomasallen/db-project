@@ -38,7 +38,7 @@
 echo  "<form method='post' action='signup.php'> $error
         <!-- Username/Password and Submission -->
         <div class='fieldname'>
-        
+
           <label><strong>First Name</strong></label>
           <input type='text' maxlength='16' placeholder='Enter First Name' name='firstname' value = '$firstname' required>
 
@@ -50,6 +50,7 @@ echo  "<form method='post' action='signup.php'> $error
             <option value='1'>UCF</option>
             <option value='2'>UF</option>
             <option value='3'>FSU</option>
+            <option value='999'>Unaffiliated</option>
           </select>
 
           <label><strong>Username</strong></label>

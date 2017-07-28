@@ -1,7 +1,7 @@
 <?php
   require_once 'header.php';
 
-  $error = $user = $pass = '';
+  $error = $user = $pass = $uid = '';
 
   if(isset($_POST['user']))
   {

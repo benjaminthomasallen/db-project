@@ -5,14 +5,13 @@ $pull_eid = $_GET['eid'];
 
 $sql = "SELECT
             name,
-            visibility,
+            privacy,
             email,
             type,
             phone,
             start_date,
             end_date,
-            location,
-            room,
+            lid,
             description
         FROM events
             WHERE eid = $pull_eid";

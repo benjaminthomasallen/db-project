@@ -10,7 +10,7 @@ echo "<!DOCTYPE html>\n <html lang ='en'><head>"                            .
      "<meta name='viewport' content='width=device-width, initial-scale=1'>" .
      "<title> RSO Events </title>"                                          ;
 
-require_once 'functions.php';
+require_once 'php/functions.php';
 
 // Variable used to call the user by their name
 $username= ' Guest';
@@ -21,14 +21,15 @@ if(isset($_SESSION['user']))
   $uid = $_SESSION['uid'];
   $school = $_SESSION['school_code'];
   $loggedin = TRUE;
-  $username =  $user;
+  $username = $user;
 }
 else $loggedin = FALSE;
 
 // Style sheet inclusions
-echo "<link rel='stylesheet' type='text/css' href='css/home.css'>"             .
-     "<link rel='stylesheet' type='text/css' href='css/calendar.css'>"         .
-     "</head><body>"                                                           .
+echo "<link rel='stylesheet' type='text/css' href='css/home.css'>"       .
+     "<link rel='stylesheet' type='text/css' href='css/calendar.css'>"   .
+     "<style>td.indent{ padding-left: 1.8em }</style>"                       .
+     "</head><body>".
      " <!-- Top Navigation Bar -->
        <nav class='navbar'>
          <a href='index.php' class='navbtn-home'> RSO Event Calendar </a>
@@ -36,8 +37,8 @@ echo "<link rel='stylesheet' type='text/css' href='css/home.css'>"             .
          <a href='php/populate_rso.php' class='navbtn'> RSO's </a>
          <a href='php/create_event.php' class='navbtn'> Create Event </a>
          <a href='php/login.php' class='navbtn'> Login/Register </a>
-         <a href='php/create_university.php' class='navbtn'> Create University </a>
-       </nav>  "                                                               ;
+         <a href='php/create_university.php' class= 'navbtn'> Create University </a>
+       </nav>  ";
 
 // Login Stuff
 if($loggedin)
