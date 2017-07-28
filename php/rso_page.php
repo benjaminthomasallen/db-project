@@ -69,9 +69,14 @@ $sql = "SELECT
             a.name,
             a.start_date,
             a.end_date,
-            a.description
+            a.description,
+            b.address,
+            b.bldg,
+            b.room
         FROM
             events a
+        JOIN location b
+        ON b.lid = a.lid
         WHERE a.rso_id = $pull_rso";
 
 $result = queryMysql($sql);
@@ -87,7 +92,7 @@ if ($result->num_rows > 0)
 
                 echo "<tr><td>" . $row["name"] . "</td></tr>";
                 echo "<tr><td>" . date('l F d, Y g:i a', $stime) . " through " . date('g:i a', $etime) . "</td></tr>";
-                //echo "<tr><td>" . $row["location"] . " " . $row["room"] . "</td></tr>";
+                echo "<tr><td>" . $row["address"] . " " . $row["bldg"] . " " . $row["room"] . "</td></tr>";
                 echo "<tr><td>" . $row["description"] . "</td></tr>";
                 echo '<tr class="bordered"><td></td></tr>';
             }
