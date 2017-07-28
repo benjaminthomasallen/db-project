@@ -65,6 +65,7 @@ CREATE TABLE events(
         description   TEXT          NOT NULL,
         approved      BOOLEAN               ,
         school_code   INT           NOT NULL,
+        privacy       INT           NOT NULL,
         FOREIGN KEY (rso_id) REFERENCES rso (rso_id) ON DELETE CASCADE,
         FOREIGN KEY (lid) REFERENCES location (lid) ON DELETE CASCADE,
         FOREIGN KEY (school_code) REFERENCES university (school_code) ON DELETE CASCADE,
@@ -195,16 +196,16 @@ INSERT INTO rso_member VALUES('10', '1');
 
 INSERT INTO events(eid, rso_id, name, email, type, phone,
                     start_date, end_date, lid, description,
-                    approved, school_code)
+                    approved, school_code, privacy)
             VALUES('1',  '2', 'First Chess Club Meeting', 'samLinnaUcf@knights.ucf.edu', 'Social', '202-555-0120',
                    '2017-07-30 13:30:00', '2017-07-30 14:00:00', '4', "The first chess club meeting of the semester, don't miss it!",
-                   '1', '1');
+                   '1', '1', '1');
 INSERT INTO events(eid, rso_id, name, email, type, phone,
                    start_date, end_date, lid, description,
-                  approved, school_code)
+                  approved, school_code, privacy)
             VALUES('2', '3', 'Aviation Club Test Flight', 'oliveMacUcf@knights.ucf.edu', 'Social', '630-446-8851',
                    '2017-08-02 10:30:00', '2017-08-02 12:00:00', '5', "The aviation club will be showing off the new drone they raised money for last semester",
-                   '1', '1');
+                   '1', '1', '1');
 
 
 
