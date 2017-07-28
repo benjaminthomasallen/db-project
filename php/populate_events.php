@@ -23,6 +23,7 @@ $sql = "SELECT
             a.eid,
             a.privacy,
             a.school_code,
+            a.approved,
             b.address,
             b.bldg,
             b.room
@@ -32,7 +33,8 @@ $sql = "SELECT
         ON b.lid = a.lid
         WHERE
             a.privacy = '$privacy' AND
-            a.school_code = '$schoolSelect'";
+            a.school_code = '$schoolSelect' and
+            a.approved = 1";
 
 $result = queryMysql($sql);
 
