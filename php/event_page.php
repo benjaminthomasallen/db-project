@@ -1,4 +1,8 @@
 <?php
+/*
+All twitter functionality derived from:
+https://code.tutsplus.com/tutorials/how-to-authenticate-users-with-twitter-oauth-20--cms-25713
+*/
 require_once 'header.php';
 require_once 'twitteroauth/autoload.php';
 use Abraham\TwitterOAuth\TwitterOAuth;
