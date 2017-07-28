@@ -34,9 +34,10 @@ if ($result->num_rows >0)
     echo "<table>";
     while($row = $result->fetch_assoc())
     {
-        $event_tweet = $row['name'];
         $stime = strtotime($row['start_date']);
         $etime = strtotime($row['end_date']);
+        $event_tweet = "Im going to the " . $row['name'] . " event on " . date('l F d, Y g:i a', $stime) . " at " . $row['bldg'] . " " . $row['room'];
+
 
         echo "<tr><td>" . $row["name"] . "</td></tr>";
         echo "<tr><td class=indent>" . date('l F d, Y g:i a', $stime) . " through " . date('g:i a', $etime) . "</td></tr>";

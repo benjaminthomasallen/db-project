@@ -24,6 +24,6 @@ $status = $twitter->post(
     ]
 );
 
-die("<h4>Tweet posted</h4><a href='populate_events.php'>Return</a><br><br>");
+die("<h4>Tweet posted '$event_tweet'</h4><a href='populate_events.php'>Return</a><br><br>");
 
  ?>
