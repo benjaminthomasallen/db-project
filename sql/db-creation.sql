@@ -12,7 +12,7 @@ CREATE TABLE location(
         room          VARCHAR(255)  NOT NULL,
         latitude      VARCHAR(255)  NOT NULL,
         longitude     VARCHAR(255)  NOT NULL,
-        PRIMARY KEY (lid)
+        PRIMARY KEY (lid, room)
 );
 
 CREATE TABLE university(
