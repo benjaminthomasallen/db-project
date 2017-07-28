@@ -158,7 +158,8 @@ VALUES('Marcelle', 'Travis', '1', 'macTravisUcf', 'pw', 'macTravisUcf@knights.ed
 INSERT INTO super_admin VALUES('1' , '10');
 
 
-
+INSERT INTO users (first_name, last_name, school_code, username, password, email)
+VALUES('Un', 'Affiliated', '999', 'unaff', 'pw', 'unaff@unaff.edu');
 
 -- For the events pulled from the ucf upcoming events xml
 INSERT INTO rso (uid, school_code, name, num_members, active)
@@ -167,6 +168,8 @@ INSERT INTO rso (uid, school_code, name, num_members, active)
 VALUES('8', '1', 'Chess Club', '5', TRUE);
 INSERT INTO rso (uid, school_code, name, num_members, active)
 VALUES('9', '1', 'Aviation Club', '5', TRUE);
+INSERT INTO rso (rso_id, uid, school_code, name, num_members, active)
+VALUES('999', '11', '999', 'Unaffiliated RSO', '1', FALSE);
 
 INSERT INTO admin VALUES('10', '1');
 INSERT INTO admin VALUES('8', '2');

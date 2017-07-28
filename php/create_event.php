@@ -2,7 +2,7 @@
   require_once 'header.php';
 
   // Variable Init
-  $error = $eid = $rid = $name = $email = $type = $phone = $start_time = $end_time = $lid = $privacy = $room = $lat = $lon = '';
+  $error = $eid = $rid = $name = $email = $type = $phone = $start_time = $end_time = $bldg = $privacy = $room = $lat = $lon = '';
   if(isset($_SESSION['eid'])) destroySession();
 
   if(!isset($_SESSION['uid']))
@@ -21,9 +21,11 @@
       $phone = sanitizeString($_POST['phone']);
       $start_time = sanitizeString($_POST['start_time']);
       $end_time = sanitizeString($_POST['end_time']);
-      $lid = sanitizeString($_POST['lid']);
+      $bldg = sanitizeString($_POST['bldg']);
       $room = sanitizeString($_POST['room']);
       $privacy = sanitizeString($_POST['privacy']);
+      $lat = sanitizeString($_POST['lat']);
+      $lon = sanitizeString($_POST['lon']);
 
       $sql = "SELECT * FROM events WHERE eid='$eid'";
       $result = queryMysql($sql);
@@ -50,12 +52,27 @@
         $school_code = $row['school_code'];
         $approved = ($rid == 999)? 0 : 1;
 
+        $sql="INSERT INTO location(name, bldg, room, latitude, longitude)"
+            ."VALUES('$name', '$bldg', '$room', '$lat', '$lon')";
+        queryMysql($sql);
+        //echo $sql;
+
+        $sql = "SELECT lid FROM location WHERE name = '$name' AND bldg = '$bldg' AND room = '$room' AND latitude='$lat' AND longitude='$lon'";
+        //echo $sql;
+
+        $result = queryMysql($sql);
+
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $lid = $row['lid'];
+            }
+        }
+
         $sql ="INSERT INTO events (eid,rso_id,name,email,type,phone,start_date,end_date,lid,approved,school_code,privacy)"
                ."VALUES('$eid', '$rid', '$name','$email', '$type', '$phone', '$start_time','$end_time', '$lid', '$approved', '$school_code', '$privacy' )";
         queryMysql($sql);
         echo $sql;
         die("<h4>Event Created</h4> See the <a href='../index.php'>Calendar</a> <br><br>");
-
 
   }
 
@@ -122,25 +139,28 @@ echo      "<select name = 'rid' required>" .
           <label><strong>End time</strong></label>
           <input type='datetime-local' name='end_time' value = '$end_time'>
 
-          <label><strong>Location</strong></label>
-          <input type='text' name='lid' value = '$lid' required>
+          <label><strong>Building</strong></label>
+          <input type='text' name='bldg' value = '$bldg' required>
 
           <label><strong>Room</strong></label>
-          <input type='text' name='room' value = '$room' required>".
+          <input type='text' name='room' value = '$room' required>";
+?>
 
-          "<style>
+          <style>
           #map{
               height: 400px;
               width: 50%;
               text-align: left;
           }
           </style>
-          <div id='latlong'>
-              <p>Latitude: <input size='20' type='text' id='latbox' name='lat' value ='$lat'></p>
-              <p>Longitude: <input size='20' type='text' id='lngbox' name='lng' value='$lon'></p>
-          </div>
+<?php
+        echo "<div id='latlong'>
+                <p><strong>Latitude: </strong><input size='20' type='text' id='latbox' name='lat' value ='$lat'></p>
+                <p><strong>Longitude: </strong><input size='20' type='text' id='lngbox' name='lon' value='$lon'></p>
+              </div>";
 
-<button type='submit'>Create Event</button>
+        echo "<button type='submit'>Create Event</button>";
+?>
 </div>
 </form>
 
@@ -176,5 +196,4 @@ echo      "<select name = 'rid' required>" .
                   src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDmF1Xw0tM0PVY1hfQUngZVqImuDSz3mEI&callback=initMap'>
               </script>
       </body>
-</html>";
- ?>
+</html>;
