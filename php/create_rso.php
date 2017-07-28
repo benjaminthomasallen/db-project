@@ -14,7 +14,7 @@ if(isset($_SESSION['rso'])) destroySession();
 if(isset($_POST['rso']))
 {
     $rso = sanitizeString($_POST['rso']);
-    $school_code = sanitizeString($_POST['school_code']);
+    $school_code = $_SESSION['school_code'];
     $name = sanitizeString($_POST['name']);
 
     // Check For Duplicate RSO's
@@ -32,13 +32,11 @@ if(isset($_POST['rso']))
       // ADD USER to Admin list for RSO
       $sql = "INSERT INTO admin(uid, rso_id)"
             ."VALUES('$uid', '$rso')";
-      echo $sql;
       queryMysql($sql);
 
       // ADD USER to RSO Members list
       $sql = "INSERT INTO rso_member(uid, rso_id)"
             ."VALUES('$uid', '$rso')";
-      echo $sql;
       queryMysql($sql);
 
       die("<h4>RSO Created</h4> See the <a href='../index.php'>Calendar</a> <br><br>");
@@ -53,9 +51,6 @@ echo "<div class='cRSO'><h3>Please enter RSO Details</h3>".
 
           <label><strong>RSO ID</strong></label>
           <input type='text' maxlength='16' placeholder='RSO ID' name='rso' value = '$rso' required>
-
-          <label><strong>School Code</strong></label>
-          <input type='text' placeholder='School code' name='school_code' value = '$school_code' required>
 
           <label><strong>RSO Name</strong></label>
           <input type='text' placeholder='Enter RSO Name' name='name' value = '$name'required>
