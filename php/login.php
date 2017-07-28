@@ -23,6 +23,16 @@
         $_SESSION['pass']= $pass;
         $_SESSION['uid'] = $uid;
         $_SESSION['school_code'] = $school;
+
+        $sql = "SELECT * FROM super_admin WHERE school_code = '$school' AND uid = '$uid'";
+        $result = queryMysql($sql);
+
+        if($result->num_rows > 0){
+            $super = 1;
+        }
+        else{$super = 0;}
+        $_SESSION['super'] = $super;
+
         die("You are now logged in. Checkout our <a href='../index.php'>calendar</a> for upcoming events!<br><br>");
       }
 

@@ -22,6 +22,7 @@ if(isset($_SESSION['user']))
   $school = $_SESSION['school_code'];
   $loggedin = TRUE;
   $username = $user;
+  $super = $_SESSION['super'];
 }
 else $loggedin = FALSE;
 
@@ -37,8 +38,11 @@ echo "<link rel='stylesheet' type='text/css' href='css/home.css'>"       .
          <a href='php/populate_rso.php' class='navbtn'> RSO's </a>
          <a href='php/create_event.php' class='navbtn'> Create Event </a>
          <a href='php/login.php' class='navbtn'> Login/Register </a>
-         <a href='php/create_university.php' class= 'navbtn'> Create University </a>
-       </nav>  ";
+         <a href='php/create_university.php' class= 'navbtn'> Create University </a>";
+         if($super == 1){
+             echo "<a href = 'adminPanel.php' class='navbtn'> Admin Panel</a>";
+         }
+       echo "</nav>  ";
 
 // Login Stuff
 if($loggedin)
