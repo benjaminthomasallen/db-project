@@ -4,6 +4,11 @@ require_once 'header.php';
 
 echo "<h2>Admin Control Page</h2></br>";
 
+echo "<h4>Pull events from UCF XML feed</h4>";
+
+echo "<form method='post' action='calendar_pull.php'>";
+echo "<button> Pull Event's</button><input type='hidden' /></form></br>";
+
 $sql = "SELECT
             name,
             eid,
@@ -32,5 +37,7 @@ if($result->num_rows > 0){
     }
     echo "</table>";
 }
+
+
 
  ?>

@@ -1,6 +1,7 @@
 <?php
 include 'header.php';
 
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 $url = "http://events.ucf.edu/upcoming/feed.xml";
@@ -38,12 +39,12 @@ $newDescription = $location.' '.$room . ' '.$description;
 $sql = "INSERT INTO events(eid, rso_id, name, email, type, phone, start_date, end_date, lid, description, approved, school_code, privacy)"
             . "VALUES ('$eid', '1', '$title', '$contact_email', '$category', '$contact_phone', '$start_date', '$end_date', '1', '$newDescription', 1, 1, 1)";
 
-            if (queryMysql($sql) <> TRUE) {
+        /*    if (queryMysql($sql) <> TRUE) {
                 echo "ERROR: " . mysqli_error($con) . "<br>";
             }
             else {
               echo "New record created successfully<br>";
-            }
+          }*/
 
 /*$sql = "INSERT INTO event_location(eid, lid, school_code, bldg, room)"
             ."VALUES('$eid', '1', '1', '$location', '$room')";
@@ -56,5 +57,6 @@ $sql = "INSERT INTO events(eid, rso_id, name, email, type, phone, start_date, en
                 echo "New record created successfully<br>";
             }*/
 
+}
 }
  ?>
